@@ -8,7 +8,25 @@ Discover AI skills for SAP — search, filter, and install skills for your digit
 
 ## Requirements and Setup
 
-*Insert a short description what is required to get your project running...*
+Install skills using the [skills CLI](https://github.com/vercel-labs/skills), which supports Claude Code, Codex, Cursor, OpenCode, and many more agents.
+
+### Install all skills
+
+```bash
+npx skills add SAP/ai-skills-library
+```
+
+### Install a specific skill
+
+```bash
+npx skills add SAP/ai-skills-library --skill <skill-name>
+```
+
+### List available skills
+
+```bash
+npx skills add SAP/ai-skills-library --list
+```
 
 ## Support, Feedback, Contributing
 
