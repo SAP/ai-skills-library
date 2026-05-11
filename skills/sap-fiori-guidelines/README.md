@@ -14,23 +14,11 @@ Ready to build smarter? Get started with Fiori skills and discover how AI can he
 
 ## Installation
 
-You'll need to get a little dirty with your command line or copy and paste this into your AI tool and let it install for you:
+We recommend using the [skills CLI](https://github.com/vercel-labs/skills) for installation:
 
-1. Create a new folder on your computer where you want to keep the skill
-   ```bash
-   mkdir design-skills
-   ```
-
-2. Clone the skill from our repository
-   ```bash
-   git clone 
-   ```
-
-
-4. Install the skill globally
-   ```bash
-   npx skills add ./SAPDesignSystemSkill -g -y
-   ```
+```bash
+npx skills add SAP/ai-skills-library --skill sap-fiori-guidelines
+```
 
 ## Usage
 
