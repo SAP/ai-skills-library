@@ -18,7 +18,10 @@ Found a typo or want to improve documentation? Fork the repository and open a PR
 
 To avoid duplicate efforts and make sure your contribution is a good fit, please **open an issue first** to pitch your idea or describe the improvement. A maintainer will review it and give a go-ahead via assignment and a comment. Once approved, fork the repository and open a pull request.
 
-We may add issue templates for skill improvements and new skills to make this process easier.
+Use the appropriate issue template to get started:
+
+* [Pitch a new skill](https://github.com/SAP/ai-skills-library/issues/new?template=new-skill.yml)
+* [Propose an improvement to an existing skill](https://github.com/SAP/ai-skills-library/issues/new?template=improve-skill.yml)
 
 ## Governing Rules
 
