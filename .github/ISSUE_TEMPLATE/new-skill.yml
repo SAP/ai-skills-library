@@ -1,0 +1,51 @@
+name: New Skill
+description: Pitch a new skill you'd like to contribute to the library.
+labels: ["new skill"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for pitching a new skill! Please fill in the details below. A maintainer will review your proposal and give a go-ahead before you start building.
+
+  - type: input
+    id: skill-name
+    attributes:
+      label: Skill name
+      description: A short, descriptive name for the skill (e.g. "SAP Fiori Guidelines").
+      placeholder: My Awesome Skill
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What does this skill do?
+      description: Describe what the skill covers and when it should be triggered.
+      placeholder: This skill helps Claude with...
+    validations:
+      required: true
+
+  - type: textarea
+    id: trigger
+    attributes:
+      label: When should this skill trigger?
+      description: List the keywords, topics, or situations that should activate this skill.
+      placeholder: |
+        - Mention of X, Y, Z
+        - When the user asks about...
+    validations:
+      required: true
+
+  - type: textarea
+    id: content-sources
+    attributes:
+      label: Content sources
+      description: What documentation, guidelines, or references would you base this skill on? Include links if available.
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Anything else the maintainers should know — target audience, related skills, limitations, etc.

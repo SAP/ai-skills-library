@@ -1,0 +1,46 @@
+name: Improve Existing Skill
+description: Pitch an improvement to an existing skill in the library.
+labels: ["improvement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve an existing skill! Please fill in the details below. A maintainer will review your proposal and give a go-ahead before you start building.
+
+  - type: input
+    id: skill-name
+    attributes:
+      label: Skill name
+      description: The name of the skill you want to improve (e.g. "sap-fiori-guidelines").
+      placeholder: sap-fiori-guidelines
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is missing or incorrect?
+      description: Describe the gap, inaccuracy, or limitation you've found.
+      placeholder: The skill doesn't cover...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-change
+    attributes:
+      label: Proposed change
+      description: What would you add, update, or remove? Be as specific as possible.
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Links to documentation, guidelines, or other sources that support your proposed change.
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Anything else the maintainers should know.
