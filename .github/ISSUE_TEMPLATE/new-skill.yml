@@ -1,48 +1,46 @@
-name: New Skill
-description: Pitch a new skill you'd like to contribute to the library.
+name: Register a New Skill
+description: Register your skill repository with the AI Skills Library to get it listed on skills.cloud.sap.
 labels: ["new skill"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for pitching a new skill! Please fill in the details below. A maintainer will review your proposal and give a go-ahead before you start building.
+        Thanks for contributing a skill! The AI Skills Library uses a **bring-your-own-repo** model — your skill code stays in your own GitHub repository. Opening this issue kicks off the onboarding process: a maintainer will review your submission and add your repo to the Skill Hub.
+
+        **Before submitting, make sure your repo is ready.** See the checklist below.
 
   - type: input
-    id: skill-name
+    id: repo-url
     attributes:
-      label: Skill name
-      description: A short, descriptive name for the skill (e.g. "SAP Fiori Guidelines").
-      placeholder: My Awesome Skill
+      label: Repository URL
+      description: The public GitHub repository that contains your skill(s). Must be on github.com.
+      placeholder: https://github.com/your-org/your-repo
     validations:
       required: true
 
   - type: textarea
-    id: description
+    id: skills-listing
     attributes:
-      label: What does this skill do?
-      description: Describe what the skill covers and when it should be triggered.
-      placeholder: This skill helps Claude with...
-    validations:
-      required: true
-
-  - type: textarea
-    id: trigger
-    attributes:
-      label: When should this skill trigger?
-      description: List the keywords, topics, or situations that should activate this skill.
+      label: Skills in this repository
+      description: List each skill with its directory slug and a one-line description.
       placeholder: |
-        - Mention of X, Y, Z
-        - When the user asks about...
+        my-skill — Does X when the user asks about Y
+        another-skill — Helps with Z in context of ...
     validations:
       required: true
 
-  - type: textarea
-    id: content-sources
+  - type: checkboxes
+    id: readiness
     attributes:
-      label: Content sources
-      description: What documentation, guidelines, or references would you base this skill on? Include links if available.
-    validations:
-      required: true
+      label: Readiness checklist
+      description: Confirm your repository meets the required structure before submitting.
+      options:
+        - label: The repository is public on github.com
+          required: true
+        - label: Each skill has a `skills/<slug>/SKILL.md` file with `name` and `description` frontmatter
+          required: true
+        - label: The repository root has a `package.json` with an `author` field
+          required: true
 
   - type: textarea
     id: additional-context
