@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for contributing a skill! The AI Skills Library uses a **bring-your-own-repo** model — your skill code stays in your own GitHub repository. Opening this issue kicks off the onboarding process: a maintainer will review your submission and add your repo to the Skill Hub.
+        Thanks for contributing a skill! The AI Skills Library uses a **bring-your-own-repo** model — your skill code stays in your own GitHub repository. Opening this issue kicks off the onboarding process: a maintainer will review your submission and add your repo to the AI Skills Library.
 
         **Before submitting, make sure your repo is ready.** See the checklist below.
 

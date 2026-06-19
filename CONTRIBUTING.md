@@ -20,11 +20,11 @@ To avoid duplicate efforts and make sure your contribution is a good fit, please
 
 ### Registering a New Skill
 
-The AI Skills Library uses a **bring-your-own-repo** model. Your skill code lives in your own public GitHub repository — you do not submit skill code to this repository. Instead, you open an issue to request onboarding, and a maintainer adds your repo to the Skill Hub so it appears on [skills.cloud.sap](https://skills.cloud.sap).
+The AI Skills Library uses a **bring-your-own-repo** model. Your skill code lives in your own public GitHub repository — you do not submit skill code to this repository. Instead, you open an issue to request onboarding, and a maintainer adds your repo to the AI Skills Library so it appears on [skills.cloud.sap](https://skills.cloud.sap).
 
 #### 1. Structure your repository
 
-Your repository must follow this layout for the Skill Hub to discover your skills:
+Your repository must follow this layout for the AI Skills Library to discover your skills:
 
 ```
 your-repo/
@@ -47,11 +47,11 @@ description: Does X when the user asks about Y. Use this skill whenever...
 ...skill content...
 ```
 
-The `description` field is what appears on the Skill Hub listing and drives AI trigger matching — make it specific and trigger-rich.
+The `description` field is what appears on the AI Skills Library listing and drives AI trigger matching — make it specific and trigger-rich.
 
 #### 2. Open a registration issue
 
-Once your repository is ready and public on github.com, open a [Register a New Skill](https://github.com/SAP/ai-skills-library/issues/new?template=new-skill.yml) issue. A maintainer will review your submission and onboard your repo to the Skill Hub.
+Once your repository is ready and public on github.com, open a [Register a New Skill](https://github.com/SAP/ai-skills-library/issues/new?template=new-skill.yml) issue. A maintainer will review your submission and onboard your repo to the AI Skills Library.
 
 ## Governing Rules
 
