@@ -39,7 +39,9 @@ body:
           required: true
         - label: Each skill has a `skills/<slug>/SKILL.md` file with `name` and `description` frontmatter
           required: true
-        - label: The repository root has a `package.json` with an `author` field
+        - label: Author information is available (e.g. in README or `package.json`)
+          required: true
+        - label: License information is available (e.g. a `LICENSE` file or `package.json`)
           required: true
 
   - type: textarea
