@@ -28,9 +28,30 @@ npx skills add SAP/ai-skills-library --skill <skill-name>
 npx skills add SAP/ai-skills-library --list
 ```
 
-## Support, Feedback, Contributing
+## Contribute a Skill
 
-This project is open to feature requests/suggestions, bug reports etc. via [GitHub issues](https://github.com/SAP/ai-skills-library/issues). Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](CONTRIBUTING.md).
+**Have a skill to share? Get it listed on [skills.cloud.sap](https://skills.cloud.sap).**
+
+The AI Skills Library uses a **bring-your-own-repo** model — your skill code stays in your own public GitHub repository. You don't submit skill code here. Instead, open a registration issue and a maintainer onboards your repo.
+
+### 1. Structure your repository
+
+```
+your-repo/
+└── skills/
+    └── <skill-slug>/
+        └── SKILL.md      # must include "name" and "description" frontmatter
+```
+
+### 2. Register your skill
+
+👉 **[Open a "Register a New Skill" issue](https://github.com/SAP/ai-skills-library/issues/new?template=new-skill.yml)**
+
+See the [Contribution Guidelines](CONTRIBUTING.md) for the full details, the `SKILL.md` example, and other contribution paths (improvements, docs).
+
+## Support & Feedback
+
+This project is open to feature requests/suggestions, bug reports etc. via [GitHub issues](https://github.com/SAP/ai-skills-library/issues).
 
 ## Security / Disclosure
 If you find any bug that may be a security problem, please follow our instructions at [in our security policy](https://github.com/SAP/ai-skills-library/security/policy) on how to report it. Please do not create GitHub issues for security-related doubts or problems.

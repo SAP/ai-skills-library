@@ -8,16 +8,6 @@ Instances of abusive, harassing, or otherwise unacceptable behavior may be repor
 
 ## How to Contribute
 
-### Documentation Fixes
-
-Found a typo or want to improve documentation? Fork the repository and open a PR directly — no prior issue needed.
-
-### Improving an Existing Skill
-
-To avoid duplicate efforts and make sure your contribution is a good fit, please **open an issue first** to describe the improvement. A maintainer will review it and give a go-ahead via assignment and a comment. Once approved, fork the repository and open a pull request.
-
-* [Propose an improvement to an existing skill](https://github.com/SAP/ai-skills-library/issues/new?template=improve-skill.yml)
-
 ### Registering a New Skill
 
 The AI Skills Library uses a **bring-your-own-repo** model. Your skill code lives in your own public GitHub repository — you do not submit skill code to this repository. Instead, you open an issue to request onboarding, and a maintainer adds your repo to the AI Skills Library so it appears on [skills.cloud.sap](https://skills.cloud.sap).
@@ -28,7 +18,6 @@ Your repository must follow this layout for the AI Skills Library to discover yo
 
 ```
 your-repo/
-├── package.json          # must include an "author" field
 └── skills/
     └── <skill-slug>/
         └── SKILL.md      # must include "name" and "description" frontmatter
@@ -52,6 +41,16 @@ The `description` field is what appears on the AI Skills Library listing and dri
 #### 2. Open a registration issue
 
 Once your repository is ready and public on github.com, open a [Register a New Skill](https://github.com/SAP/ai-skills-library/issues/new?template=new-skill.yml) issue. A maintainer will review your submission and onboard your repo to the AI Skills Library.
+
+### Improving an Existing Skill
+
+To avoid duplicate efforts and make sure your contribution is a good fit, please **open an issue first** to describe the improvement. A maintainer will review it and give a go-ahead via assignment and a comment. Once approved, fork the repository and open a pull request.
+
+* [Propose an improvement to an existing skill](https://github.com/SAP/ai-skills-library/issues/new?template=improve-skill.yml)
+
+### Documentation Fixes
+
+Found a typo or want to improve documentation? Fork the repository and open a PR directly — no prior issue needed.
 
 ## Governing Rules
 
