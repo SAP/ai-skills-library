@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "skills": [
+    {
+      "name": "sap-fiori-ios",
+      "path": ".",
+      "description": "SAP Fiori for iOS Design Skill — converts Figma designs from the SAP Fiori iOS UI Kit into correct SwiftUI prototype code with Fiori color tokens, typography, animations, and component guidelines.",
+      "version": "1.0.0",
+      "author": "SAP UX",
+      "tags": ["sap", "fiori", "ios", "swift", "swiftui", "prototype", "design-system", "figma", "fiori-theme", "72-font"]
+    }
+  ]
+}
