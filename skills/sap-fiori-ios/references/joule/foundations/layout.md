@@ -145,5 +145,5 @@ ScrollView {
 
 ## Related Foundations
 
-- [../foundations/adaptive-layout.md](../foundations/adaptive-layout.md)
+- [../../foundations/adaptive-layout.md](../../foundations/adaptive-layout.md)
 - [colors.md](colors.md)

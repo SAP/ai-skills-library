@@ -250,5 +250,5 @@ struct AIFeedbackDetailView: View {
 
 - [ai-insights.md](ai-insights.md)
 - [ai-writing-assistant.md](ai-writing-assistant.md)
-- [../components/toast-message.md](../components/toast-message.md)
-- [../components/illustrated-message.md](../components/illustrated-message.md)
+- [../../components/toast-message.md](../../components/toast-message.md)
+- [../../components/illustrated-message.md](../../components/illustrated-message.md)

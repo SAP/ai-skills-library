@@ -1,7 +1,7 @@
 # AI Buttons — In-App AI Design
 
 > SAP Fiori for iOS | In-App AI Design / Components
-> Extends: [../components/buttons.md](../components/buttons.md)
+> Extends: [../../components/buttons.md](../../components/buttons.md)
 
 ## What is it?
 
@@ -116,6 +116,6 @@ FioriButton { _ in
 
 ## Related
 
-- [../components/buttons.md](../components/buttons.md)
+- [../../components/buttons.md](../../components/buttons.md)
 - [ai-progress-indicators.md](ai-progress-indicators.md)
-- [ai-ui-text.md](ai-ui-text.md)
+- [../foundations/ai-ui-text.md](../foundations/ai-ui-text.md)

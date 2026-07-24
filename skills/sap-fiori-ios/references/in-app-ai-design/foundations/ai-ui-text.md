@@ -93,6 +93,6 @@ Text("Request failed. Refine your request and try again.")  // ✅
 
 ## Related
 
-- [ai-buttons.md](ai-buttons.md) — button labels follow these rules
-- [ai-progress-indicators.md](ai-progress-indicators.md) — indicator labels follow these rules
+- [../components/ai-buttons.md](../components/ai-buttons.md) — button labels follow these rules
+- [../components/ai-progress-indicators.md](../components/ai-progress-indicators.md) — indicator labels follow these rules
 - [get-started.md](get-started.md)

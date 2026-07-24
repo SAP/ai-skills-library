@@ -48,7 +48,7 @@ Color.preferredColor(.jouleSelectedLabel)
 
 ## Elevation in Joule
 
-Joule uses shadows to suggest elevation — sharper for base-layer components, softer for elevated components. The Joule card system also uses an outline to create stronger contrast. Follows [../foundations/elevation.md](../foundations/elevation.md).
+Joule uses shadows to suggest elevation — sharper for base-layer components, softer for elevated components. The Joule card system also uses an outline to create stronger contrast. Follows [../../foundations/elevation.md](../../foundations/elevation.md).
 
 ---
 
@@ -65,12 +65,12 @@ Colors adapt automatically via `Color.preferredColor(.token)` — same API as st
 
 ## Accessibility
 
-Joule follows the same WCAG compliance standards as SAP Fiori iOS. Color pairings use the Horizon pairing system. See [../foundations/accessibility.md](../foundations/accessibility.md) and [../foundations/colors.md](../foundations/colors.md).
+Joule follows the same WCAG compliance standards as SAP Fiori iOS. Color pairings use the Horizon pairing system. See [../../foundations/accessibility.md](../../foundations/accessibility.md) and [../../foundations/colors.md](../../foundations/colors.md).
 
 ---
 
 ## Related Foundations
 
-- [../foundations/colors.md](../foundations/colors.md) — full Fiori color token reference
-- [../foundations/elevation.md](../foundations/elevation.md) — shadow levels
-- [../foundations/accessibility.md](../foundations/accessibility.md) — contrast ratios
+- [../../foundations/colors.md](../../foundations/colors.md) — full Fiori color token reference
+- [../../foundations/elevation.md](../../foundations/elevation.md) — shadow levels
+- [../../foundations/accessibility.md](../../foundations/accessibility.md) — contrast ratios

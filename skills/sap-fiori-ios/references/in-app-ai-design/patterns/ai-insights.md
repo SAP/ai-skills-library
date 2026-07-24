@@ -161,6 +161,6 @@ struct AIInsightsCard: View {
 
 - [ai-user-feedback.md](ai-user-feedback.md)
 - [ai-notice.md](ai-notice.md)
-- [../components/cards.md](../components/cards.md)
-- [../components/illustrated-message.md](../components/illustrated-message.md)
-- [../components/skeleton-loading.md](../components/skeleton-loading.md)
+- [../../components/cards.md](../../components/cards.md)
+- [../../components/illustrated-message.md](../../components/illustrated-message.md)
+- [../../components/skeleton-loading.md](../../components/skeleton-loading.md)

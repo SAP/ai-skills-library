@@ -47,7 +47,7 @@ These guidelines provide a foundation for integrating generative AI into SAP mob
 
 ## Related
 
-- [ai-handoff.md](ai-handoff.md) — transitions between embedded AI and Joule
-- [ai-ui-text.md](ai-ui-text.md) — writing effective AI interface copy
+- [patterns/ai-handoff.md](patterns/ai-handoff.md) — transitions between embedded AI and Joule
+- [foundations/ai-ui-text.md](foundations/ai-ui-text.md) — writing effective AI interface copy
 - [components/ai-buttons.md](components/ai-buttons.md) — AI button component
 - [components/ai-progress-indicators.md](components/ai-progress-indicators.md)

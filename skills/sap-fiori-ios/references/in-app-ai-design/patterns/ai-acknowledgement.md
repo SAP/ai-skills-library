@@ -164,5 +164,5 @@ FioriButton { _ in Text("Opt Out") }
 ## Related
 
 - [ai-notice.md](ai-notice.md)
-- [../components/illustrated-message.md](../components/illustrated-message.md)
-- [../patterns/consent-forms.md](../patterns/consent-forms.md)
+- [../../components/illustrated-message.md](../../components/illustrated-message.md)
+- [../../patterns/consent-forms.md](../../patterns/consent-forms.md)

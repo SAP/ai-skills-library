@@ -210,5 +210,5 @@ Color.preferredColor(.stockDownStroke) // price decrease
 
 ## Related Components
 
-- [kpi-header.md](kpi-header.md) — numeric KPI display
-- [cards.md](cards.md) — chart inside a card
+- [../components/kpi-header.md](../components/kpi-header.md) — numeric KPI display
+- [../components/cards.md](../components/cards.md) — chart inside a card

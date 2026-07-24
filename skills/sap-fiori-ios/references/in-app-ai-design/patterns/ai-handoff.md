@@ -101,5 +101,5 @@ FioriButton { _ in
 ## Related
 
 - [get-started.md](get-started.md)
-- [ai-ui-text.md](ai-ui-text.md)
-- [ai-buttons.md](ai-buttons.md)
+- [../foundations/ai-ui-text.md](../foundations/ai-ui-text.md)
+- [../../components/ai-buttons.md](../../components/ai-buttons.md)

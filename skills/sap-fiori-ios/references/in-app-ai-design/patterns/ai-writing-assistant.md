@@ -290,5 +290,5 @@ struct WritingAssistantPanel: View {
 
 - [ai-notice.md](ai-notice.md)
 - [ai-user-feedback.md](ai-user-feedback.md)
-- [ai-ui-text.md](ai-ui-text.md)
-- [../components/text-inputs.md](../components/text-inputs.md)
+- [../foundations/ai-ui-text.md](../foundations/ai-ui-text.md)
+- [../../components/text-inputs.md](../../components/text-inputs.md)

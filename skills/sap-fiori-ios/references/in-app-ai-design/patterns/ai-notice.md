@@ -154,5 +154,5 @@ HStack(spacing: 4) {
 ## Related
 
 - [ai-acknowledgement.md](ai-acknowledgement.md)
-- [ai-ui-text.md](ai-ui-text.md)
-- [../components/banner.md](../components/banner.md)
+- [../foundations/ai-ui-text.md](../foundations/ai-ui-text.md)
+- [../../components/banner.md](../../components/banner.md)

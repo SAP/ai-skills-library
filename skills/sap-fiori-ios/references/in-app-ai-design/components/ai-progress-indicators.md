@@ -1,7 +1,7 @@
 # AI Progress Indicators — In-App AI Design
 
 > SAP Fiori for iOS | In-App AI Design / Components
-> Extends: [../components/activity-indicator.md](../components/activity-indicator.md), [../components/linear-progress-indicator.md](../components/linear-progress-indicator.md)
+> Extends: [../../components/activity-indicator.md](../../components/activity-indicator.md), [../../components/linear-progress-indicator.md](../../components/linear-progress-indicator.md)
 
 ## What is it?
 
@@ -157,6 +157,6 @@ if isGenerating {
 ## Related
 
 - [ai-buttons.md](ai-buttons.md)
-- [ai-ui-text.md](ai-ui-text.md)
-- [../components/linear-progress-indicator.md](../components/linear-progress-indicator.md)
-- [../components/activity-indicator.md](../components/activity-indicator.md)
+- [../foundations/ai-ui-text.md](../foundations/ai-ui-text.md)
+- [../../components/linear-progress-indicator.md](../../components/linear-progress-indicator.md)
+- [../../components/activity-indicator.md](../../components/activity-indicator.md)

@@ -188,5 +188,5 @@ struct ChartTableViewCell: View {
 ## Related Components
 
 - [charts.md](charts.md) — full chart types and `ChartView` API
-- [chart-header.md](chart-header.md) — simplified chart in an object header
-- [object-cell.md](object-cell.md) — table view cell context
+- [../components/chart-header.md](../components/chart-header.md) — simplified chart in an object header
+- [../components/object-cell.md](../components/object-cell.md) — table view cell context

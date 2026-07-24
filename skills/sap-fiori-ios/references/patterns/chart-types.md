@@ -210,5 +210,5 @@ ChartModel(
 ## Related Components
 
 - [charts.md](charts.md) — chart anatomy, contexts, and `ChartView` API
-- [chart-header.md](chart-header.md) — simplified chart in object header (line/column only)
+- [../components/chart-header.md](../components/chart-header.md) — simplified chart in object header (line/column only)
 - [chart-content-table-view-cell.md](chart-content-table-view-cell.md) — full-width chart in a table cell

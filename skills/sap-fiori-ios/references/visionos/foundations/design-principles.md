@@ -29,7 +29,7 @@ Primary input: **gaze (eye tracking)** + **spatial input (hand/finger tracking)*
 
 - Programmatically limit minimum and maximum length for each axis
 - Consider minimum dimensions for complex data grids
-- See [../foundations/adaptive-layout.md](../../../foundations/adaptive-layout.md)
+- See [../../foundations/adaptive-layout.md](../../foundations/adaptive-layout.md)
 
 ### Additional visionOS-Specific Guidance
 
