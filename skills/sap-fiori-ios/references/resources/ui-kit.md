@@ -30,6 +30,6 @@ The SAP Fiori for iOS Figma UI Kit contains UI components, patterns, page types,
 
 ## Related
 
-- [SKILL.md](../SKILL.md) — how to use the Figma file key with `get_figma_data`
+- [SKILL.md](../../SKILL.md) — how to use the Figma file key with `get_figma_data`
 - [../foundations/typography.md](../foundations/typography.md) — SAP 72 font usage in SwiftUI
 - [../foundations/iconography.md](../foundations/iconography.md) — SF Symbols + SAP icon library
