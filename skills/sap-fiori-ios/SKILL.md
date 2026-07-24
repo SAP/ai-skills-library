@@ -47,7 +47,7 @@ Color.preferredColor(.primaryLabel)
 Color.preferredColor(.tintColor, background: .darkConstant)
 ```
 
-See [references/foundations/colors.md](references/foundations/colors.md) and [references/references/colors.md](references/references/colors.md) for the full token table.
+See [references/foundations/colors.md](references/foundations/colors.md) and [references/colors.md](references/colors.md) for the full token table.
 
 ---
 
@@ -268,4 +268,4 @@ struct FioriScreenTemplate: View {
 | [references/components/filter-feedback-bar.md](references/components/filter-feedback-bar.md) | FilterFeedbackBar, SortFilter |
 | [references/components/signature-capture.md](references/components/signature-capture.md) | SignatureView |
 | [references/patterns/single-user-onboarding.md](references/patterns/single-user-onboarding.md) | WelcomeScreen, ActivationScreen, EULA, Consent |
-| [references/references/colors.md](references/references/colors.md) | Quick color token lookup |
+| [references/colors.md](references/colors.md) | Quick color token lookup |
