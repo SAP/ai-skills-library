@@ -101,4 +101,4 @@ NavigationLink(destination:
 ## Related Components / Patterns
 
 - [../components/hierarchy-view.md](../components/hierarchy-view.md)
-- [list-report.md](list-report.md)
+- [../page-types/list-report-page.md](../page-types/list-report-page.md)
