@@ -24,12 +24,10 @@ A Claude Code skill that brings the full SAP Fiori for iOS design system into yo
 
 ## Installation
 
-This skill is part of the [ai-skills-library](https://github.com/JensMaurerSAP/ai-skills-library). To install it, open an issue in that repository using the **Add Skill** template and reference this skill's path: `skills/sap-fiori-ios`.
+We recommend using the [skills CLI](https://github.com/vercel-labs/skills) for installation:
 
-Once installed, restart Claude Code and invoke the skill with:
-
-```
-/sap-fiori-ios
+```bash
+npx skills add SAP/ai-skills-library --skill sap-fiori-ios
 ```
 
 ---
