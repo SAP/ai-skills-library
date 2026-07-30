@@ -34,4 +34,4 @@ jobs:
         close-issue-message: >
           Hey there, it's me again! 
           The issue got stale and no further activity happened. It has automatically been closed. Please re-open in case you still consider it relevant.
-        any-of-labels: 'author action,wontfix'
+        any-of-labels: 'author-action,wontfix'
