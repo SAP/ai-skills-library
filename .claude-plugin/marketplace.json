@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "ai-skills-library",
+  "description": "Discover AI skills for SAP — search, filter, and install skills for your digital assistant.",
+  "owner": {
+    "name": "SAP"
+  },
+  "plugins": [
+    {
+      "name": "aicore-skills",
+      "description": "Skills for SAP AI Core.",
+      "author": {
+        "name": "SAP"
+      },
+      "source": "./plugins/aicore-skills",
+      "homepage": "https://skills.cloud.sap"
+    }
+  ]
+}

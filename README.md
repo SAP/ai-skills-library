@@ -28,6 +28,12 @@ npx skills add SAP/ai-skills-library --skill <skill-name>
 npx skills add SAP/ai-skills-library --list
 ```
 
+### Install a plugin
+
+```bash
+npx skills add SAP/ai-skills-library --plugin aicore-skills
+```
+
 ## Contribute a Skill
 
 **Have a skill to share? Get it listed on [skills.cloud.sap](https://skills.cloud.sap).**
