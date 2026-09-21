@@ -1,0 +1,21 @@
+{
+  "name": "aicore-skills",
+  "description": "Skills for SAP AI Core.",
+  "version": "0.0.1",
+  "author": {
+    "name": "SAP"
+  },
+  "homepage": "https://skills.cloud.sap",
+  "repository": "https://github.com/SAP/ai-skills-library",
+  "keywords": [
+    "SAP AI Core",
+    "SAP Generative AI Hub",
+    "SAP Business AI Platform",
+    "SAP Business AI"
+  ],
+  "skills": [
+    "./skills/aicore-admin-resources",
+    "./skills/aicore-lifecycle-management",
+    "./skills/genai-hub-foundation-models"
+  ]
+}
