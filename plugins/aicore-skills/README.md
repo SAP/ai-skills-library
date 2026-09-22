@@ -18,7 +18,7 @@ A growing library of agent skills for the SAP AI Core.
 ## Installation
 
 ```bash
-npx skills add SAP/ai-skills-library --plugin aicore-skills
+npx skills add SAP/ai-skills-library/plugins/aicore-skills
 ```
 
 Supported harnesses: Claude Code, Codex, Cursor, Gemini CLI, and any agent that supports the [agentskills.io](https://agentskills.io) specification.
