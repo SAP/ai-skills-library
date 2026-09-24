@@ -52,7 +52,7 @@ body:
           required: true
         - label: The skill conforms to the [SAP API Policy](https://help.sap.com/doc/sap-api-policy/latest/en-US/API_Policy_latest.pdf)
           required: true
-        - label: If you are an SAP employee, you are following the [OSPO Outbound Process](https://wiki.one.int.sap/wiki/spaces/ospodocs/pages/2042105240/Contributing)
+        - label: I confirm that, if I am an SAP employee, I am following the [OSPO Outbound Process](https://wiki.one.int.sap/wiki/spaces/ospodocs/pages/2042105240/Contributing)
           required: true
 
   - type: textarea
