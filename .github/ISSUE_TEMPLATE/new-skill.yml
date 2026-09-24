@@ -44,6 +44,17 @@ body:
         - label: License information is available (e.g. a `LICENSE` file or `package.json`)
           required: true
 
+  - type: checkboxes
+    id: compliance
+    attributes:
+      label: Compliance
+      description: Confirm your skill meets SAP's policy and process requirements before submitting.
+      options:
+        - label: The skill conforms to the [SAP API Policy](https://help.sap.com/doc/sap-api-policy/latest/en-US/API_Policy_latest.pdf)
+          required: true
+        - label: If you are an SAP employee, you are following the [OSPO Outbound Process](https://wiki.one.int.sap/wiki/spaces/ospodocs/pages/2042105240/Contributing)
+          required: true
+
   - type: textarea
     id: additional-context
     attributes:
