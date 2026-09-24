@@ -51,9 +51,15 @@ jobs:
 
             // --- Check #1: host + owner/repo -------------------------------
             function parseGitHubRepo(url) {
+              // Tolerate a missing scheme (e.g. "github.com/owner/repo"), which
+              // is a common way people paste repo URLs.
+              let normalized = String(url).trim();
+              if (!/^[a-z][a-z0-9+.-]*:\/\//i.test(normalized)) {
+                normalized = "https://" + normalized;
+              }
               let parsed;
               try {
-                parsed = new URL(url);
+                parsed = new URL(normalized);
               } catch {
                 return null;
               }
@@ -70,11 +76,18 @@ jobs:
             const failures = [];
             const repoRef = parseGitHubRepo(rawUrl);
 
+            // Neutralize the submitter-controlled URL before echoing it into a
+            // Markdown comment: strip backticks (code-span breakout), collapse
+            // newlines, and cap the length.
+            function forCodeSpan(value) {
+              return String(value).replace(/`/g, "'").replace(/\r?\n/g, " ").slice(0, 200);
+            }
+
             if (!repoRef) {
               failures.push(
-                "**Repository is not hosted on github.com.** The submitted URL " +
-                "(`" + rawUrl + "`) must point to a public repository on " +
-                "`https://github.com/<owner>/<repo>`."
+                "**The repository URL is not a public github.com repository.** " +
+                "The submitted URL (`" + forCodeSpan(rawUrl) + "`) must be of the " +
+                "form `https://github.com/<owner>/<repo>`."
               );
             } else {
               // --- Reachability: repo must exist and be public ------------
@@ -88,20 +101,23 @@ jobs:
                 reachable = true;
                 defaultBranch = data.default_branch;
               } catch (error) {
-                if (error.status === 404 || error.status === 403 || error.status === 451) {
+                if (error.status === 404) {
                   failures.push(
                     "**Repository could not be found or is not public.** " +
                     "`" + repoRef.owner + "/" + repoRef.repo + "` must be a " +
                     "public repository on github.com."
                   );
                 } else {
+                  // 403 (rate/secondary limit), 451, 5xx, etc. are transient or
+                  // environmental — fail the run loudly rather than wrongly
+                  // closing a potentially valid submission.
                   throw error;
                 }
               }
 
               // --- Check #2: skills/<slug>/SKILL.md structure -------------
               if (reachable) {
-                let tree = [];
+                let tree = null;
                 let truncated = false;
                 try {
                   const { data } = await github.rest.git.getTree({
@@ -113,27 +129,37 @@ jobs:
                   tree = data.tree || [];
                   truncated = data.truncated;
                 } catch (error) {
-                  throw error;
+                  // An empty repository (default branch has no tree yet)
+                  // returns 404/409 — that is simply a missing structure, not
+                  // a run failure. Anything else is unexpected → rethrow.
+                  if (error.status !== 404 && error.status !== 409) {
+                    throw error;
+                  }
                 }
 
                 const skillFile = /^skills\/[^/]+\/SKILL\.md$/;
-                const hasStructure = tree.some(
-                  (entry) => entry.type === "blob" && skillFile.test(entry.path)
-                );
+                const hasStructure =
+                  tree !== null &&
+                  tree.some(
+                    (entry) => entry.type === "blob" && skillFile.test(entry.path)
+                  );
 
-                if (!hasStructure) {
-                  let msg =
+                if (!hasStructure && tree !== null && truncated) {
+                  // The tree was too large to scan fully and we did not find a
+                  // match in the returned page. Don't auto-close a possibly
+                  // valid repo — leave it open for manual maintainer review.
+                  core.warning(
+                    "Repository tree for " + repoRef.owner + "/" + repoRef.repo +
+                    " was truncated and no skills/<slug>/SKILL.md was found in " +
+                    "the returned page. Leaving the issue open for manual review."
+                  );
+                } else if (!hasStructure) {
+                  failures.push(
                     "**Repository structure does not match the required " +
                     "`skills/<slug>/SKILL.md` layout.** At least one skill must " +
                     "live at `skills/<slug>/SKILL.md` on the default branch " +
-                    "(`" + defaultBranch + "`).";
-                  if (truncated) {
-                    msg +=
-                      " _Note: the repository tree was too large to scan " +
-                      "completely; if you believe this is a mistake, please let " +
-                      "a maintainer know._";
-                  }
-                  failures.push(msg);
+                    "(`" + defaultBranch + "`)."
+                  );
                 }
               }
             }
