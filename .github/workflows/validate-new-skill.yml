@@ -1,0 +1,173 @@
+name: Validate new skill submission
+
+# Automatically triage "Register a New Skill" issues on creation.
+# Runs two basic checks against the submitted repository:
+#   1. The repository is hosted on https://github.com and is reachable/public.
+#   2. It follows the skills/<slug>/SKILL.md structure convention.
+# If any check fails, the workflow posts a single explanatory comment and
+# closes the issue as "not planned". Issues without a Repository URL section
+# (e.g. improve-skill issues) are ignored.
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body || "";
+
+            // --- Gate: only act on new-skill submissions -------------------
+            // The "Register a New Skill" form is the only template that
+            // renders a "### Repository URL" section. Anything else (e.g.
+            // improve-skill issues) is ignored.
+            function extractRepositoryUrl(issueBody) {
+              const match = issueBody.match(/^###\s+Repository URL\s*$/im);
+              if (!match) return null;
+              const rest = issueBody.slice(match.index + match[0].length);
+              // First non-empty line after the heading is the field value.
+              for (const rawLine of rest.split(/\r?\n/)) {
+                const line = rawLine.trim();
+                if (line === "") continue;
+                if (/^###\s/.test(line)) break; // next section, value was empty
+                return line;
+              }
+              return null;
+            }
+
+            const rawUrl = extractRepositoryUrl(body);
+            if (rawUrl === null) {
+              core.info("No 'Repository URL' section found; not a new-skill submission. Skipping.");
+              return;
+            }
+
+            // --- Check #1: host + owner/repo -------------------------------
+            function parseGitHubRepo(url) {
+              let parsed;
+              try {
+                parsed = new URL(url);
+              } catch {
+                return null;
+              }
+              const host = parsed.hostname.toLowerCase();
+              if (host !== "github.com" && host !== "www.github.com") return null;
+              const segments = parsed.pathname.split("/").filter(Boolean);
+              if (segments.length < 2) return null;
+              const owner = segments[0];
+              const repo = segments[1].replace(/\.git$/i, "");
+              if (!owner || !repo) return null;
+              return { owner, repo };
+            }
+
+            const failures = [];
+            const repoRef = parseGitHubRepo(rawUrl);
+
+            if (!repoRef) {
+              failures.push(
+                "**Repository is not hosted on github.com.** The submitted URL " +
+                "(`" + rawUrl + "`) must point to a public repository on " +
+                "`https://github.com/<owner>/<repo>`."
+              );
+            } else {
+              // --- Reachability: repo must exist and be public ------------
+              let reachable = false;
+              let defaultBranch = null;
+              try {
+                const { data } = await github.rest.repos.get({
+                  owner: repoRef.owner,
+                  repo: repoRef.repo,
+                });
+                reachable = true;
+                defaultBranch = data.default_branch;
+              } catch (error) {
+                if (error.status === 404 || error.status === 403 || error.status === 451) {
+                  failures.push(
+                    "**Repository could not be found or is not public.** " +
+                    "`" + repoRef.owner + "/" + repoRef.repo + "` must be a " +
+                    "public repository on github.com."
+                  );
+                } else {
+                  throw error;
+                }
+              }
+
+              // --- Check #2: skills/<slug>/SKILL.md structure -------------
+              if (reachable) {
+                let tree = [];
+                let truncated = false;
+                try {
+                  const { data } = await github.rest.git.getTree({
+                    owner: repoRef.owner,
+                    repo: repoRef.repo,
+                    tree_sha: defaultBranch,
+                    recursive: "true",
+                  });
+                  tree = data.tree || [];
+                  truncated = data.truncated;
+                } catch (error) {
+                  throw error;
+                }
+
+                const skillFile = /^skills\/[^/]+\/SKILL\.md$/;
+                const hasStructure = tree.some(
+                  (entry) => entry.type === "blob" && skillFile.test(entry.path)
+                );
+
+                if (!hasStructure) {
+                  let msg =
+                    "**Repository structure does not match the required " +
+                    "`skills/<slug>/SKILL.md` layout.** At least one skill must " +
+                    "live at `skills/<slug>/SKILL.md` on the default branch " +
+                    "(`" + defaultBranch + "`).";
+                  if (truncated) {
+                    msg +=
+                      " _Note: the repository tree was too large to scan " +
+                      "completely; if you believe this is a mistake, please let " +
+                      "a maintainer know._";
+                  }
+                  failures.push(msg);
+                }
+              }
+            }
+
+            // --- No failures: leave for maintainer triage ------------------
+            if (failures.length === 0) {
+              core.info("All basic checks passed.");
+              return;
+            }
+
+            // --- Failures: comment + close as not planned ------------------
+            const comment =
+              "Thanks for your submission! Unfortunately this registration " +
+              "does not meet the basic requirements for the AI Skills Library, " +
+              "so it is being closed automatically:\n\n" +
+              failures.map((f) => "- " + f).join("\n") +
+              "\n\nPlease review the [contribution requirements]" +
+              "(https://github.com/" + context.repo.owner + "/" + context.repo.repo +
+              "/blob/main/CONTRIBUTING.md) and open a new submission once the " +
+              "issues above are resolved.";
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: comment,
+            });
+
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              state: "closed",
+              state_reason: "not_planned",
+            });
+
+            core.info("Closed issue #" + context.payload.issue.number + " as not planned.");
