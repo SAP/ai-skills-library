@@ -1,0 +1,199 @@
+name: Validate new skill submission
+
+# Automatically triage "Register a New Skill" issues on creation.
+# Runs two basic checks against the submitted repository:
+#   1. The repository is hosted on https://github.com and is reachable/public.
+#   2. It follows the skills/<slug>/SKILL.md structure convention.
+# If any check fails, the workflow posts a single explanatory comment and
+# closes the issue as "not planned". Issues without a Repository URL section
+# (e.g. improve-skill issues) are ignored.
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body || "";
+
+            // --- Gate: only act on new-skill submissions -------------------
+            // The "Register a New Skill" form is the only template that
+            // renders a "### Repository URL" section. Anything else (e.g.
+            // improve-skill issues) is ignored.
+            function extractRepositoryUrl(issueBody) {
+              const match = issueBody.match(/^###\s+Repository URL\s*$/im);
+              if (!match) return null;
+              const rest = issueBody.slice(match.index + match[0].length);
+              // First non-empty line after the heading is the field value.
+              for (const rawLine of rest.split(/\r?\n/)) {
+                const line = rawLine.trim();
+                if (line === "") continue;
+                if (/^###\s/.test(line)) break; // next section, value was empty
+                return line;
+              }
+              return null;
+            }
+
+            const rawUrl = extractRepositoryUrl(body);
+            if (rawUrl === null) {
+              core.info("No 'Repository URL' section found; not a new-skill submission. Skipping.");
+              return;
+            }
+
+            // --- Check #1: host + owner/repo -------------------------------
+            function parseGitHubRepo(url) {
+              // Tolerate a missing scheme (e.g. "github.com/owner/repo"), which
+              // is a common way people paste repo URLs.
+              let normalized = String(url).trim();
+              if (!/^[a-z][a-z0-9+.-]*:\/\//i.test(normalized)) {
+                normalized = "https://" + normalized;
+              }
+              let parsed;
+              try {
+                parsed = new URL(normalized);
+              } catch {
+                return null;
+              }
+              const host = parsed.hostname.toLowerCase();
+              if (host !== "github.com" && host !== "www.github.com") return null;
+              const segments = parsed.pathname.split("/").filter(Boolean);
+              if (segments.length < 2) return null;
+              const owner = segments[0];
+              const repo = segments[1].replace(/\.git$/i, "");
+              if (!owner || !repo) return null;
+              return { owner, repo };
+            }
+
+            const failures = [];
+            const repoRef = parseGitHubRepo(rawUrl);
+
+            // Neutralize the submitter-controlled URL before echoing it into a
+            // Markdown comment: strip backticks (code-span breakout), collapse
+            // newlines, and cap the length.
+            function forCodeSpan(value) {
+              return String(value).replace(/`/g, "'").replace(/\r?\n/g, " ").slice(0, 200);
+            }
+
+            if (!repoRef) {
+              failures.push(
+                "**The repository URL is not a public github.com repository.** " +
+                "The submitted URL (`" + forCodeSpan(rawUrl) + "`) must be of the " +
+                "form `https://github.com/<owner>/<repo>`."
+              );
+            } else {
+              // --- Reachability: repo must exist and be public ------------
+              let reachable = false;
+              let defaultBranch = null;
+              try {
+                const { data } = await github.rest.repos.get({
+                  owner: repoRef.owner,
+                  repo: repoRef.repo,
+                });
+                reachable = true;
+                defaultBranch = data.default_branch;
+              } catch (error) {
+                if (error.status === 404) {
+                  failures.push(
+                    "**Repository could not be found or is not public.** " +
+                    "`" + repoRef.owner + "/" + repoRef.repo + "` must be a " +
+                    "public repository on github.com."
+                  );
+                } else {
+                  // 403 (rate/secondary limit), 451, 5xx, etc. are transient or
+                  // environmental — fail the run loudly rather than wrongly
+                  // closing a potentially valid submission.
+                  throw error;
+                }
+              }
+
+              // --- Check #2: skills/<slug>/SKILL.md structure -------------
+              if (reachable) {
+                let tree = null;
+                let truncated = false;
+                try {
+                  const { data } = await github.rest.git.getTree({
+                    owner: repoRef.owner,
+                    repo: repoRef.repo,
+                    tree_sha: defaultBranch,
+                    recursive: "true",
+                  });
+                  tree = data.tree || [];
+                  truncated = data.truncated;
+                } catch (error) {
+                  // An empty repository (default branch has no tree yet)
+                  // returns 404/409 — that is simply a missing structure, not
+                  // a run failure. Anything else is unexpected → rethrow.
+                  if (error.status !== 404 && error.status !== 409) {
+                    throw error;
+                  }
+                }
+
+                const skillFile = /^skills\/[^/]+\/SKILL\.md$/;
+                const hasStructure =
+                  tree !== null &&
+                  tree.some(
+                    (entry) => entry.type === "blob" && skillFile.test(entry.path)
+                  );
+
+                if (!hasStructure && tree !== null && truncated) {
+                  // The tree was too large to scan fully and we did not find a
+                  // match in the returned page. Don't auto-close a possibly
+                  // valid repo — leave it open for manual maintainer review.
+                  core.warning(
+                    "Repository tree for " + repoRef.owner + "/" + repoRef.repo +
+                    " was truncated and no skills/<slug>/SKILL.md was found in " +
+                    "the returned page. Leaving the issue open for manual review."
+                  );
+                } else if (!hasStructure) {
+                  failures.push(
+                    "**Repository structure does not match the required " +
+                    "`skills/<slug>/SKILL.md` layout.** At least one skill must " +
+                    "live at `skills/<slug>/SKILL.md` on the default branch " +
+                    "(`" + defaultBranch + "`)."
+                  );
+                }
+              }
+            }
+
+            // --- No failures: leave for maintainer triage ------------------
+            if (failures.length === 0) {
+              core.info("All basic checks passed.");
+              return;
+            }
+
+            // --- Failures: comment + close as not planned ------------------
+            const comment =
+              "Thanks for your submission! Unfortunately this registration " +
+              "does not meet the basic requirements for the AI Skills Library, " +
+              "so it is being closed automatically:\n\n" +
+              failures.map((f) => "- " + f).join("\n") +
+              "\n\nPlease review the [contribution requirements]" +
+              "(https://github.com/" + context.repo.owner + "/" + context.repo.repo +
+              "/blob/main/CONTRIBUTING.md) and open a new submission once the " +
+              "issues above are resolved.";
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: comment,
+            });
+
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              state: "closed",
+              state_reason: "not_planned",
+            });
+
+            core.info("Closed issue #" + context.payload.issue.number + " as not planned.");
