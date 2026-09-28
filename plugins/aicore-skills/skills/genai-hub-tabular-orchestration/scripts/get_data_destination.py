@@ -60,6 +60,9 @@ def main():
     print(f"Name:        {r.get('name', '')}")
     print(f"Type:        {r.get('type', '')}")
     print(f"Adapter:     {r.get('adapterType', '')}")
+    print(f"Status:      {r.get('status', '')}")
+    if r.get("errorMessage"):
+        print(f"Error:       {r['errorMessage']}")
     print(f"Description: {r.get('description', '')}")
     print(f"Labels:      {labels_str}")
     print(f"Created:     {r.get('createdAt', '')}")

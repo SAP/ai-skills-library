@@ -59,9 +59,10 @@ def main():
     print(f"Path:         {r.get('path', '')}")
     print(f"Type:         {r.get('type', '')}")
     print(f"Status:       {r.get('status', '')}")
+    if r.get("errorMessage"):
+        print(f"Error:        {r['errorMessage']}")
     print(f"Virtual table: {r.get('virtualTableName', '')}")
     print(f"Remote source: {r.get('remoteSourceName', '')}")
-
     print(f"Created:      {r.get('createdAt', '')}")
     print(f"Updated:      {r.get('updatedAt', '')}")
 

@@ -2,15 +2,25 @@
 # dependencies = ["sap-ai-sdk-core>=3.3.0", "requests>=2.31.0"]
 # ///
 """
-Update the tabular artifact list of an existing scenario configuration.
-Replaces the entire list — include all artifact names you want to keep.
+Update an existing scenario configuration.
+At least one of --tabular-artifacts, --strategy, --labels, or --description must be provided.
+Replaces the fields you supply — omitted fields are left unchanged.
 
 Usage:
-  uv run scripts/patch_scenario_config.py --name <name> --tabular-artifacts ta1,ta2,...
+  uv run scripts/patch_scenario_config.py --name <name> [OPTIONS]
+
+Options:
+  --tabular-artifacts ta1,ta2,...   Replace the entire tabular artifact list
+  --strategy random|embedding       Update context selection strategy
+  --labels KEY=VALUE [...]          Replace the entire label set
+  --description TEXT                Update the description
 
 Examples:
   uv run scripts/patch_scenario_config.py \\
       --name my-scenario --tabular-artifacts customer-ta,orders-ta,inventory-ta
+
+  uv run scripts/patch_scenario_config.py \\
+      --name my-scenario --strategy embedding --labels ext.ai.sap.com/env=prod
 """
 
 import argparse
@@ -19,19 +29,52 @@ import sys
 import requests
 
 
+def parse_labels(raw: list[str]) -> list[dict]:
+    labels = []
+    for item in raw:
+        if "=" not in item:
+            print(f"ERROR: label '{item}' must be in key=value format", file=sys.stderr)
+            sys.exit(1)
+        key, value = item.split("=", 1)
+        labels.append({"key": key, "value": value})
+    return labels
+
+
 def main():
-    parser = argparse.ArgumentParser(description="Update a scenario configuration's tabular artifacts")
+    parser = argparse.ArgumentParser(description="Update a scenario configuration")
     parser.add_argument("--name", required=True, help="Scenario configuration name")
-    parser.add_argument("--tabular-artifacts", required=True, dest="tabular_artifacts",
+    parser.add_argument("--tabular-artifacts", dest="tabular_artifacts",
                         help="Comma-separated list of tabular artifact names (replaces existing list)")
+    parser.add_argument("--strategy", choices=["random", "embedding"], dest="strategy",
+                        help="Context selection strategy")
+    parser.add_argument("--labels", nargs="+", default=None, metavar="KEY=VALUE",
+                        help="Labels to set (replaces all existing labels)")
+    parser.add_argument("--description", help="Updated description")
     parser.add_argument("--resource-group", metavar="RG", help="AI-Resource-Group header value. Overrides env/SDK default.")
     args = parser.parse_args()
 
-    ta_names = [t.strip() for t in args.tabular_artifacts.split(",") if t.strip()]
-    if not ta_names:
-        print("ERROR: --tabular-artifacts must contain at least one name", file=sys.stderr)
+    body: dict = {}
+
+    if args.tabular_artifacts is not None:
+        ta_names = [t.strip() for t in args.tabular_artifacts.split(",") if t.strip()]
+        if not ta_names:
+            print("ERROR: --tabular-artifacts must contain at least one name", file=sys.stderr)
+            sys.exit(1)
+        body["tabularArtifacts"] = [{"name": n} for n in ta_names]
+    else:
+        ta_names = []
+
+    if args.strategy:
+        body["contextSelectionStrategy"] = args.strategy
+    if args.labels is not None:
+        body["labels"] = parse_labels(args.labels)
+    if args.description is not None:
+        body["description"] = args.description
+
+    if not body:
+        print("ERROR: at least one of --tabular-artifacts, --strategy, --labels, or --description must be provided",
+              file=sys.stderr)
         sys.exit(1)
-    ta_objects = [{"name": n} for n in ta_names]
 
     try:
         from ai_core_sdk.ai_core_v2_client import AICoreV2Client
@@ -44,7 +87,6 @@ def main():
     token = client.rest_client.get_token()
     rg = args.resource_group or client.rest_client.headers.get("AI-Resource-Group", "default")
 
-    body = {"tabularArtifacts": ta_objects}
     url = f"{base_url}/tcr/scenarioConfigurations/{args.name}"
     headers = {"Authorization": token, "AI-Resource-Group": rg, "Content-Type": "application/json"}
 
@@ -69,7 +111,8 @@ def main():
 
     if resp.status_code == 204:
         print(f"Updated scenario configuration: {args.name}")
-        print(f"New tabular artifacts: {', '.join(ta_names)}")
+        if ta_names:
+            print(f"New tabular artifacts: {', '.join(ta_names)}")
     elif resp.status_code == 404:
         print(f"Not found: {args.name}", file=sys.stderr)
         sys.exit(1)

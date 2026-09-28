@@ -55,8 +55,17 @@ def main():
         return
 
     tas = ", ".join(t["name"] for t in r.get("tabularArtifacts", []))
+    labels = r.get("labels", [])
+    labels_str = ", ".join(f"{l['key']}={l['value']}" for l in labels) if labels else "(none)"
+
     print(f"Name:              {r.get('name', '')}")
+    print(f"Status:            {r.get('status', '')}")
+    if r.get("errorMessage"):
+        print(f"Error:             {r['errorMessage']}")
+    print(f"Description:       {r.get('description', '')}")
+    print(f"Strategy:          {r.get('contextSelectionStrategy', '')}")
     print(f"Tabular artifacts: {tas or '(none)'}")
+    print(f"Labels:            {labels_str}")
     print(f"Created:           {r.get('createdAt', '')}")
     print(f"Updated:           {r.get('updatedAt', '')}")
 

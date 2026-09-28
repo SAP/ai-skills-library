@@ -6,10 +6,17 @@ Create a new scenario configuration.
 
 Usage:
   uv run scripts/create_scenario_config.py --name <name> --tabular-artifacts ta1,ta2,...
+      [--description TEXT] [--strategy random|embedding]
+      [--labels KEY=VALUE ...]
 
 Examples:
   uv run scripts/create_scenario_config.py \\
       --name my-scenario --tabular-artifacts customer-ta,orders-ta
+
+  uv run scripts/create_scenario_config.py \\
+      --name my-scenario --tabular-artifacts customer-ta,orders-ta \\
+      --description "Production HR scenario" --strategy embedding \\
+      --labels ext.ai.sap.com/env=prod
 """
 
 import argparse
@@ -18,11 +25,27 @@ import sys
 import requests
 
 
+def parse_labels(raw: list[str]) -> list[dict]:
+    labels = []
+    for item in raw:
+        if "=" not in item:
+            print(f"ERROR: label '{item}' must be in key=value format", file=sys.stderr)
+            sys.exit(1)
+        key, value = item.split("=", 1)
+        labels.append({"key": key, "value": value})
+    return labels
+
+
 def main():
     parser = argparse.ArgumentParser(description="Create a scenario configuration")
     parser.add_argument("--name", required=True, help="Scenario configuration name (1-127 chars, kebab-case)")
     parser.add_argument("--tabular-artifacts", required=True, dest="tabular_artifacts",
                         help="Comma-separated list of tabular artifact names")
+    parser.add_argument("--description", help="Optional description")
+    parser.add_argument("--strategy", choices=["random", "embedding"], dest="strategy",
+                        help="Context selection strategy (default: random)")
+    parser.add_argument("--labels", nargs="+", default=[], metavar="KEY=VALUE",
+                        help="Labels, e.g. ext.ai.sap.com/env=prod")
     parser.add_argument("--resource-group", metavar="RG", help="AI-Resource-Group header value. Overrides env/SDK default.")
     args = parser.parse_args()
 
@@ -43,7 +66,14 @@ def main():
     token = client.rest_client.get_token()
     rg = args.resource_group or client.rest_client.headers.get("AI-Resource-Group", "default")
 
-    body = {"tabularArtifacts": ta_objects}
+    body: dict = {"tabularArtifacts": ta_objects}
+    if args.description:
+        body["description"] = args.description
+    if args.strategy:
+        body["contextSelectionStrategy"] = args.strategy
+    if args.labels:
+        body["labels"] = parse_labels(args.labels)
+
     url = f"{base_url}/tcr/scenarioConfigurations/{args.name}"
     headers = {"Authorization": token, "AI-Resource-Group": rg, "Content-Type": "application/json"}
 
@@ -76,7 +106,8 @@ def main():
         or ", ".join(result.get("tabularArtifactNames", []))
     )
     print(f"Created scenario configuration: {result['name']}")
-    print(f"Tabular artifacts: {ta_confirmed}")
+    if ta_confirmed:
+        print(f"Tabular artifacts: {ta_confirmed}")
 
 
 if __name__ == "__main__":
