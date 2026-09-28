@@ -6,6 +6,7 @@ description: >
   fix authentication errors, run a setup health check, or list, create, update, or delete
   resource groups.
   DO NOT USE FOR: managing deployments — use `aicore-lifecycle-management`; listing foundation models — use `genai-hub-foundation-models`.
+allowed-tools: Bash, Read
 compatibility: Requires Python 3.11+, uv, and sap-ai-sdk-core.
 ---
 
