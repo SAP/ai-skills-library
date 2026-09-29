@@ -10,6 +10,7 @@ description: >
   image generation, etc.).
   DO NOT USE FOR: creating or managing deployments — use `aicore-lifecycle-management`.
 compatibility: Requires Python 3.11+, uv, and sap-ai-sdk-core.
+allowed-tools: Bash, Read
 ---
 
 ## Rules

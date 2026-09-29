@@ -14,6 +14,7 @@ description: >
 compatibility: Requires Python 3.11+, uv, sap-ai-sdk-core, and BTP CLI (btp) for registering
   HDL access. See references/SETUP.md for BTP CLI install and SSO login. All TCR API calls go to
   https://api.ai.{region}.ml.hana.ondemand.com/v2/tcr
+allowed-tools: Bash, Read
 ---
 
 ## Rules
@@ -25,6 +26,7 @@ compatibility: Requires Python 3.11+, uv, sap-ai-sdk-core, and BTP CLI (btp) for
 5. For credential or auth errors, invoke `aicore-admin-resources` first.
 6. Mutating scripts require `--confirm`; always pass it explicitly for delete operations.
 7. Omit `--resource-group` when the user doesn't specify one; the SDK default is used.
+8. Before helping a user remove a subject pattern from a BTP service instance: run `btp get services/instance --id <id>` to retrieve the current configuration, show the user the exact entry or entries being removed and the full resulting `authorizations` payload that will be sent, and require explicit confirmation. Do not issue `btp update services/instance` until the user confirms.
 
 ---
 

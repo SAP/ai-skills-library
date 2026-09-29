@@ -9,6 +9,7 @@ description: >
   `genai-hub-foundation-models`; managing resource groups, secrets, or GitOps resources — use
   `aicore-admin-resources`.
 compatibility: Requires Python 3.11+, uv, and sap-ai-sdk-core.
+allowed-tools: Bash, Read
 ---
 
 ## Rules

@@ -7,6 +7,7 @@ description: >
   resource groups.
   DO NOT USE FOR: managing deployments — use `aicore-lifecycle-management`; listing foundation models — use `genai-hub-foundation-models`.
 compatibility: Requires Python 3.11+, uv, and sap-ai-sdk-core.
+allowed-tools: Bash, Read
 ---
 
 ## Rules
