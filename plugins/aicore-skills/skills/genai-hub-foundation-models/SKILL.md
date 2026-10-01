@@ -9,6 +9,7 @@ description: >
   or get curl inference examples for a deployed model (chat completions, Responses API, embeddings,
   image generation, etc.).
   DO NOT USE FOR: creating or managing deployments — use `aicore-lifecycle-management`.
+allowed-tools: Bash, Read
 compatibility: Requires Python 3.11+, uv, and sap-ai-sdk-core.
 allowed-tools: Bash, Read
 ---
