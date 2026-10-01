@@ -9,8 +9,9 @@ description: >
   scenario configurations, TCR, HDL connections, or wants to register/list/delete structured data
   sources in SAP AI Core. Always use this skill for any tabular-orchestration / tcr API work, even if the user
   just asks "show me my data destinations" or "register this CSV as a tabular artifact".
-  Also use for: tabular prediction, "predict a column", "classify rows".
-  NOT FOR general orchestration or LLM pipelines — use `genai-hub-orchestration` for those.
+  Also use for: SAP AI Core tabular prediction, sap-rpt prediction, "predict a column with sap-rpt", TCR row classification.
+  NOT FOR general orchestration, generic ML prediction, or LLM pipelines — use `genai-hub-orchestration` for those.
+  NOT FOR general classification/prediction requests unrelated to SAP AI Core TCR (e.g. "predict sales next quarter", "classify this text").
 compatibility: Requires Python 3.11+, uv, sap-ai-sdk-core, and BTP CLI (btp) for registering
   HDL access. See references/SETUP.md for BTP CLI install and SSO login. All TCR API calls go to
   https://api.ai.{region}.ml.hana.ondemand.com/v2/tcr
