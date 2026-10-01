@@ -34,6 +34,15 @@ npx skills add SAP/ai-skills-library --list
 npx skills add SAP/ai-skills-library --plugin aicore-skills
 ```
 
+### Usage
+
+Once installed, Claude picks up the skills automatically — just describe what you need:
+
+- "`/genai-hub-tabular-orchestration` List all my data destinations and tabular artifacts"
+- "`/genai-hub-tabular-orchestration` Register my CSV file on HDL as a tabular artifact called customer-data"
+- "`/genai-hub-tabular-orchestration` Create a scenario configuration bundling customer-ta and orders-ta"
+- "`/genai-hub-tabular-orchestration` Lets predict using a tabular orchestration scenario configuration <scenarion config name> and rpt1.5"
+
 ## Contribute a Skill
 
 **Have a skill to share? Get it listed on [skills.cloud.sap](https://skills.cloud.sap).**
