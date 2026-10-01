@@ -27,7 +27,7 @@ allowed-tools: Bash, Read
 5. For credential or auth errors, invoke `aicore-admin-resources` first.
 6. Mutating scripts require `--confirm`; always pass it explicitly for delete operations.
 7. Omit `--resource-group` when the user doesn't specify one; the SDK default is used.
-8. Before helping a user remove a subject pattern from a BTP service instance: run `btp get services/instance --id <id>` to retrieve the current configuration, show the user the exact entry or entries being removed and the full resulting `authorizations` payload that will be sent, and require explicit confirmation. Do not issue `btp update services/instance` until the user confirms.
+8. Before issuing any `btp update services/instance` command: (a) run `btp get services/instance --id <id>` to fetch the full current `parameters` block, (b) show the user the complete current parameters and the exact diff — what is being added, changed, or removed — along with the full resulting payload that will be sent, and (c) require the user to explicitly confirm the shown parameters and the proposed change before proceeding. Do not issue `btp update services/instance` under any circumstance until the user has confirmed in that same turn.
 
 ---
 
