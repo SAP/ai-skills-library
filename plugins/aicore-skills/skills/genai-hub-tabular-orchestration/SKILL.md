@@ -143,15 +143,32 @@ btp list services/instance
 Look for the instance whose name or type corresponds to the HDL Files service used by this data
 destination.
 
-**2. Read current instance configuration** (to preserve existing authorizations)
+**2. Fetch and show current instance parameters**
 
 ```bash
 btp get services/instance --id <hdl-instance-id>
 ```
 
-Note any existing `authorizations` entries — they must be included in the update.
+Extract the full `parameters` block from the output. Show it to the user verbatim.
+Note any existing `authorizations` entries — they must be preserved in the update payload.
 
-**3. Add the subject pattern(s)**
+**3. Build and confirm the update payload**
+
+Construct the full `parameters` payload with the new subject pattern(s) added alongside all
+existing `authorizations` entries. Show the user:
+- The **current** `authorizations` array (from step 2)
+- The **new entry or entries** being added
+- The **complete resulting payload** that will be sent
+
+If AI Core returns multiple patterns, add one entry per pattern with sequential ranks. The
+`authorizations` array **replaces** the existing one — always include all existing entries.
+
+**Ask the user to explicitly confirm the current parameters and the proposed payload before
+continuing. Do not proceed until confirmation is received in the same turn.**
+
+**4. Apply the update**
+
+Only after the user has confirmed:
 
 ```bash
 btp update services/instance \
@@ -170,10 +187,6 @@ btp update services/instance \
     }
   }'
 ```
-
-If AI Core returns multiple patterns, add one entry per pattern with sequential ranks. The
-`authorizations` array **replaces** the existing one — always include all existing entries
-alongside the new AI Core entry.
 
 > **Do you have this role?** Requires **Subaccount Administrator** or **Service Administrator**
 > on the subaccount that owns the HDL instance. If not, share the subject pattern(s) with your
