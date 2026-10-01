@@ -30,3 +30,7 @@ Once installed, just describe what you need:
 - `genai-hub-foundation-models`: "What models are available from Anthropic?"
 - `genai-hub-foundation-models`: "Create a gpt-4o-mini deployment and wait for it to be running"
 - `genai-hub-foundation-models`: "Generate a curl example using the OpenAI Responses API via GenAI Hub"
+- `genai-hub-tabular-orchestration`: "List all my data destinations and tabular artifacts"
+- `genai-hub-tabular-orchestration`: "Register my CSV file on HDL as a tabular artifact called customer-data"
+- `genai-hub-tabular-orchestration`: "Create a scenario configuration bundling customer-ta and orders-ta"
+- `genai-hub-tabular-orchestration`: "Lets predict using a tabular orchestration scenario configuration <scenarion config name> and rpt1.5"
