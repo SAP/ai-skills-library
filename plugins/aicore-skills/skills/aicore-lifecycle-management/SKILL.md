@@ -10,6 +10,7 @@ description: >
   `aicore-admin-resources`.
 allowed-tools: Bash, Read
 compatibility: Requires Python 3.11+, uv, and sap-ai-sdk-core.
+allowed-tools: Bash, Read
 ---
 
 ## Rules

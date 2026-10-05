@@ -16,6 +16,7 @@
   "skills": [
     "./skills/aicore-admin-resources",
     "./skills/aicore-lifecycle-management",
-    "./skills/genai-hub-foundation-models"
+    "./skills/genai-hub-foundation-models",
+    "./skills/genai-hub-tabular-orchestration"
   ]
 }
