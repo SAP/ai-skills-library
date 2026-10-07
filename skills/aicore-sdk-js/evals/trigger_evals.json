@@ -1,0 +1,133 @@
+{
+  "skill_name": "aicore-sdk-js",
+  "description": "Trigger evals for aicore-sdk-js. should_trigger=true means Claude should select this skill; false means a neighboring skill (named in `belongs_to`) should fire instead. Near-miss negatives share SAP AI Core vocabulary but belong elsewhere.",
+  "queries": [
+    {
+      "query": "Give me TypeScript code to chat with a GenAI Hub model",
+      "should_trigger": true
+    },
+    {
+      "query": "How do I use @sap-ai-sdk/orchestration in my Node app?",
+      "should_trigger": true
+    },
+    {
+      "query": "ts snippet for streaming tokens from SAP orchestration",
+      "should_trigger": true
+    },
+    {
+      "query": "I need a JavaScript starter that calls an SAP AI Core LLM",
+      "should_trigger": true
+    },
+    {
+      "query": "How do I wire up LangChain in TypeScript with SAP AI Core?",
+      "should_trigger": true
+    },
+    {
+      "query": "Show me how to get text embeddings from GenAI Hub in TS",
+      "should_trigger": true
+    },
+    {
+      "query": "Can I use the openai npm package against SAP AI Core? How?",
+      "should_trigger": true
+    },
+    {
+      "query": "Write a bun script that does chat completion via @sap-ai-sdk",
+      "should_trigger": true
+    },
+    {
+      "query": "I have a deployment id and a gpt-4o model — give me the TypeScript to call it",
+      "should_trigger": true
+    },
+    {
+      "query": "How do I add tool calling to my orchestration client in Node.js?",
+      "should_trigger": true
+    },
+    {
+      "query": "AzureOpenAiChatClient invoke example in TypeScript please",
+      "should_trigger": true
+    },
+    {
+      "query": "What's the current @sap-ai-sdk config shape for the model name in JS?",
+      "should_trigger": true
+    },
+    {
+      "query": "Use the standard OpenAI SDK against SAP AI Core in TypeScript without a proxy",
+      "should_trigger": true
+    },
+    {
+      "query": "How do I call the OpenAI Responses API on SAP AI Core from Node?",
+      "should_trigger": true
+    },
+    {
+      "query": "TypeScript for RAG on SAP AI Core: create a collection, add docs, and search",
+      "should_trigger": true
+    },
+    {
+      "query": "How do I manage versioned prompt templates in AI Core from JS?",
+      "should_trigger": true
+    },
+    {
+      "query": "Run thousands of prompts as an offline batch job on AI Core in TypeScript",
+      "should_trigger": true
+    },
+    {
+      "query": "Predict a missing table column with SAP-RPT-1 using @sap-ai-sdk in TS",
+      "should_trigger": true
+    },
+    {
+      "query": "My AICORE_SERVICE_KEY gives clientId is undefined — what JSON shape does the JS SDK expect?",
+      "should_trigger": true
+    },
+
+    {
+      "query": "Write the SAP orchestration chat code in Python",
+      "should_trigger": false,
+      "belongs_to": "aicore-sdk-python"
+    },
+    {
+      "query": "Give me a Python snippet for GenAI Hub embeddings",
+      "should_trigger": false,
+      "belongs_to": "aicore-sdk-python"
+    },
+    {
+      "query": "Create a gpt-4o-mini deployment and wait for it to be running",
+      "should_trigger": false,
+      "belongs_to": "aicore-lifecycle-management"
+    },
+    {
+      "query": "List and delete my AI Core deployments",
+      "should_trigger": false,
+      "belongs_to": "aicore-lifecycle-management"
+    },
+    {
+      "query": "What foundation models are available in my AI Core instance?",
+      "should_trigger": false,
+      "belongs_to": "genai-hub-foundation-models"
+    },
+    {
+      "query": "Which model name should I use for Claude on GenAI Hub?",
+      "should_trigger": false,
+      "belongs_to": "genai-hub-foundation-models"
+    },
+    {
+      "query": "I keep getting 401 Unauthorized calling AI Core — how do I fix my credentials?",
+      "should_trigger": false,
+      "belongs_to": "aicore-admin-resources"
+    },
+    {
+      "query": "How do I run aicore configure to set up my credentials?",
+      "should_trigger": false,
+      "belongs_to": "aicore-admin-resources"
+    },
+    {
+      "query": "Explain the orchestration service concepts and its grounding module (no code)",
+      "should_trigger": false,
+      "belongs_to": "genai-hub-orchestration"
+    },
+    {
+      "query": "Set up a tabular AI orchestration pipeline for my dataset",
+      "should_trigger": false,
+      "belongs_to": "genai-hub-tabular-orchestration"
+    }
+  ]
+}
