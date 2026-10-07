@@ -1,0 +1,129 @@
+{
+  "skill_name": "aicore-sdk-java",
+  "description": "Trigger evals for aicore-sdk-java. should_trigger=true means Claude should select this skill; false means a neighboring skill (named in `belongs_to`) should fire instead. Near-miss negatives share SAP AI Core vocabulary but belong elsewhere.",
+  "queries": [
+    {
+      "query": "Give me Java code to chat with a GenAI Hub model",
+      "should_trigger": true
+    },
+    {
+      "query": "How do I use com.sap.ai.sdk:orchestration in my Spring Boot app?",
+      "should_trigger": true
+    },
+    {
+      "query": "Java snippet for streaming tokens from SAP orchestration",
+      "should_trigger": true
+    },
+    {
+      "query": "I need a Java starter that calls an SAP AI Core LLM",
+      "should_trigger": true
+    },
+    {
+      "query": "How do I do a multi-turn conversation with the SAP AI SDK for Java?",
+      "should_trigger": true
+    },
+    {
+      "query": "Show me how to get text embeddings from GenAI Hub in Java",
+      "should_trigger": true
+    },
+    {
+      "query": "How do I use OrchestrationClient with gpt-4o-mini in Java?",
+      "should_trigger": true
+    },
+    {
+      "query": "Give me a Maven project that calls an SAP AI Core LLM",
+      "should_trigger": true
+    },
+    {
+      "query": "I have a deployment and a gpt-4o model — give me the Java code to call it",
+      "should_trigger": true
+    },
+    {
+      "query": "How do I apply LlamaGuard content filtering in Java with SAP AI SDK?",
+      "should_trigger": true
+    },
+    {
+      "query": "Show me structured JSON output with ResponseJsonSchema in Java",
+      "should_trigger": true
+    },
+    {
+      "query": "How do I use ResponseBodyEmitter for streaming in Spring Boot with SAP AI SDK?",
+      "should_trigger": true
+    },
+    {
+      "query": "Java code for RAG on SAP AI Core: grounding with a vector store",
+      "should_trigger": true
+    },
+    {
+      "query": "How do I load a versioned prompt template from the SAP Prompt Registry in Java?",
+      "should_trigger": true
+    },
+    {
+      "query": "How do I anonymize PII before sending to an LLM using the Java SDK?",
+      "should_trigger": true
+    },
+    {
+      "query": "How do I use extended thinking / reasoning with Claude via the SAP AI SDK for Java?",
+      "should_trigger": true
+    },
+    {
+      "query": "Give me a Kotlin example for calling GenAI Hub models via SAP AI SDK",
+      "should_trigger": true
+    },
+    {
+      "query": "How do I use prompt templates with variable substitution in the SAP AI SDK for Java?",
+      "should_trigger": true
+    },
+
+    {
+      "query": "Write the SAP orchestration chat code in Python",
+      "should_trigger": false,
+      "belongs_to": "aicore-sdk-python"
+    },
+    {
+      "query": "Give me a Python snippet for GenAI Hub embeddings",
+      "should_trigger": false,
+      "belongs_to": "aicore-sdk-python"
+    },
+    {
+      "query": "Give me TypeScript code to chat with a GenAI Hub model",
+      "should_trigger": false,
+      "belongs_to": "aicore-sdk-js"
+    },
+    {
+      "query": "How do I use @sap-ai-sdk/orchestration in my Node app?",
+      "should_trigger": false,
+      "belongs_to": "aicore-sdk-js"
+    },
+    {
+      "query": "Create a gpt-4o-mini deployment and wait for it to be running",
+      "should_trigger": false,
+      "belongs_to": "aicore-lifecycle-management"
+    },
+    {
+      "query": "List and delete my AI Core deployments",
+      "should_trigger": false,
+      "belongs_to": "aicore-lifecycle-management"
+    },
+    {
+      "query": "What foundation models are available in my AI Core instance?",
+      "should_trigger": false,
+      "belongs_to": "genai-hub-foundation-models"
+    },
+    {
+      "query": "Which model name should I use for Claude on GenAI Hub?",
+      "should_trigger": false,
+      "belongs_to": "genai-hub-foundation-models"
+    },
+    {
+      "query": "I keep getting 401 Unauthorized calling AI Core — how do I fix my credentials?",
+      "should_trigger": false,
+      "belongs_to": "aicore-admin-resources"
+    },
+    {
+      "query": "Explain the orchestration service concepts and its grounding module (no code)",
+      "should_trigger": false,
+      "belongs_to": "genai-hub-orchestration"
+    }
+  ]
+}

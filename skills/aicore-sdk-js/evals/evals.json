@@ -1,0 +1,220 @@
+{
+  "skill_name": "aicore-sdk-js",
+  "evals": [
+    {
+      "id": 7,
+      "prompt": "Give me TypeScript code to do a simple chat with gpt-4o-mini using @sap-ai-sdk",
+      "expected_output": "Agent asks clarifying questions if needed, then produces working TypeScript code using @sap-ai-sdk/orchestration with OrchestrationClient, including the correct npm install command and a credential setup comment.",
+      "assertions": [
+        "Generated code uses @sap-ai-sdk/orchestration (not a generic OpenAI client)",
+        "Code imports OrchestrationClient from @sap-ai-sdk/orchestration",
+        "Install command uses npm install @sap-ai-sdk/orchestration",
+        "Code includes a comment about aicore configure or credential setup",
+        "Code calls chatCompletion() or equivalent and prints the response"
+      ]
+    },
+    {
+      "id": 25,
+      "prompt": "Write TypeScript to chat with an orchestration model using @sap-ai-sdk. Use the current SDK config shape.",
+      "expected_output": "Agent produces v2 OrchestrationClient code using the promptTemplating config shape, not the legacy llm/templating shape.",
+      "assertions": [
+        "Config uses promptTemplating with a nested model: { name: ... }",
+        "Config does NOT use the v1 shape llm: { model_name } or a top-level templating: { template } key",
+        "Model params (if any) are under model.params (e.g. temperature, max_tokens), not model_params",
+        "Response content is read via getContent()"
+      ]
+    },
+    {
+      "id": 26,
+      "prompt": "Show me how to stream a chat completion token-by-token with @sap-ai-sdk/orchestration in TypeScript.",
+      "expected_output": "Agent produces streaming code that consumes response.stream as an async iterable and prints deltas via getDeltaContent().",
+      "assertions": [
+        "Code calls client.stream(...) and iterates response.stream with a for await...of loop",
+        "Code does NOT use an EventEmitter pattern like stream.stream.on('data', ...)",
+        "Each chunk's text is read via getDeltaContent()",
+        "Install command uses npm install @sap-ai-sdk/orchestration"
+      ]
+    },
+    {
+      "id": 27,
+      "prompt": "I want to use an Anthropic Claude model through SAP orchestration in Node.js/TypeScript. Give me a starter.",
+      "expected_output": "Agent produces OrchestrationClient v2 code with an Anthropic Claude model name in promptTemplating.model.name.",
+      "assertions": [
+        "model.name is an orchestration model identifier for Claude (e.g. anthropic--claude-4.5-haiku)",
+        "Config uses the v2 promptTemplating shape",
+        "Code prints the response via getContent()",
+        "A credential setup comment (aicore configure) is present"
+      ]
+    },
+    {
+      "id": 28,
+      "prompt": "Give me TypeScript for text embeddings via SAP GenAI Hub using @sap-ai-sdk.",
+      "expected_output": "Agent produces embedding code using OrchestrationEmbeddingClient (or the LangChain embedding client) with the v2 embeddings.model.name config.",
+      "assertions": [
+        "Code imports an embedding client (OrchestrationEmbeddingClient or AzureOpenAiEmbeddingClient)",
+        "Config selects an embedding model (e.g. text-embedding-3-large / text-embedding-3-small)",
+        "For OrchestrationEmbeddingClient, config uses embeddings: { model: { name } } (v2 shape)",
+        "Code calls embed()/embedQuery() and accesses the resulting vectors"
+      ]
+    },
+    {
+      "id": 29,
+      "prompt": "How do I use LangChain with SAP AI Core in TypeScript? I want the AzureOpenAiChatClient.",
+      "expected_output": "Agent produces @sap-ai-sdk/langchain code using AzureOpenAiChatClient with invoke/stream, and notes no LiteLLM proxy is needed.",
+      "assertions": [
+        "Code imports AzureOpenAiChatClient from @sap-ai-sdk/langchain",
+        "Install command includes @sap-ai-sdk/langchain and @langchain/core",
+        "Code uses invoke() and/or stream() with a for await loop",
+        "Agent states no LiteLLM proxy is required for the LangChain integration"
+      ]
+    },
+    {
+      "id": 30,
+      "prompt": "Give me a LangChain OrchestrationClient example in TypeScript for SAP AI Core.",
+      "expected_output": "Agent produces @sap-ai-sdk/langchain OrchestrationClient code typed with LangChainOrchestrationModuleConfig and the v2 promptTemplating shape.",
+      "assertions": [
+        "Code imports OrchestrationClient from @sap-ai-sdk/langchain",
+        "Config is typed as LangChainOrchestrationModuleConfig (not the plain OrchestrationModuleConfig from @sap-ai-sdk/orchestration)",
+        "Config uses the v2 promptTemplating.model shape",
+        "Code uses invoke() or stream()"
+      ]
+    },
+    {
+      "id": 31,
+      "prompt": "I already use the openai npm package. How do I point it at SAP AI Core from TypeScript?",
+      "expected_output": "Agent explains the LiteLLM proxy pattern and produces openai-package code with an overridden baseURL, and mentions the SAP SDK as the native alternative.",
+      "assertions": [
+        "Code uses the openai npm package with baseURL overridden to a LiteLLM proxy URL",
+        "Agent explains a LiteLLM proxy must be running (points to FRAMEWORKS.md or setup)",
+        "Agent mentions @sap-ai-sdk as the native alternative that needs no proxy",
+        "Install command uses npm install openai"
+      ]
+    },
+    {
+      "id": 32,
+      "prompt": "Write the SAP orchestration chat code in Python for me.",
+      "expected_output": "Agent recognizes this is a Python request and hands off to the aicore-sdk-python skill rather than generating JS/TS.",
+      "assertions": [
+        "Agent does not generate TypeScript/JavaScript code",
+        "Agent explicitly hands off to or names the aicore-sdk-python skill"
+      ]
+    },
+    {
+      "id": 33,
+      "prompt": "Generate a chat example with @sap-ai-sdk/orchestration but I don't have a deployment yet.",
+      "expected_output": "Agent notes a deployment is needed and offers to invoke aicore-lifecycle-management, rather than silently emitting code that will fail.",
+      "assertions": [
+        "Agent recognizes no deployment/model is available",
+        "Agent offers to invoke or names aicore-lifecycle-management to list/create a deployment",
+        "Agent still explains the correct v2 code shape to use once a deployment exists"
+      ]
+    },
+    {
+      "id": 34,
+      "prompt": "How do I add tool calling (function calling) to an orchestration chat in TypeScript?",
+      "expected_output": "Agent produces tool-calling guidance; if the context7 MCP tool is available it prefers the live docs, otherwise it uses the baked-in reference and does not fabricate the API.",
+      "assertions": [
+        "Tools are configured under promptTemplating.prompt.tools (v2 shape)",
+        "For streaming, tool-call deltas are read via getDeltaToolCalls()",
+        "Agent does not invent a v1-style config; it uses the reference or Context7 for specifics",
+        "Config uses the v2 promptTemplating shape"
+      ]
+    },
+    {
+      "id": 35,
+      "prompt": "How do I mask personal data (PII) before it reaches the model, in TypeScript orchestration?",
+      "expected_output": "Agent explains the orchestration masking module and, if context7 is available, fetches the current shape; otherwise uses the baked-in reference pointer without fabricating.",
+      "assertions": [
+        "Answer references a masking module/config on the orchestration client (e.g. masking with masking_providers)",
+        "Agent uses the v2 promptTemplating shape for the base client config",
+        "If unsure of exact masking config, agent consults Context7 (if available) or the reference rather than guessing"
+      ]
+    },
+    {
+      "id": 36,
+      "prompt": "What's the current, correct way to set the model name in the @sap-ai-sdk orchestration config? I saw an old example using model_name.",
+      "expected_output": "Agent states the v2 shape uses promptTemplating.model.name and that llm.model_name is the deprecated v1 shape.",
+      "assertions": [
+        "Agent says the current shape is promptTemplating: { model: { name } }",
+        "Agent identifies llm: { model_name } as the old v1 shape that no longer applies",
+        "Agent does not present the v1 shape as current"
+      ]
+    },
+    {
+      "id": 37,
+      "prompt": "I want to use the standard OpenAI SDK (chat + Responses API) against SAP AI Core in TypeScript, without running a separate proxy. How?",
+      "expected_output": "Agent produces @sap-ai-sdk/openai code using SapOpenAi.createClient and notes it removes the need for a LiteLLM proxy.",
+      "assertions": [
+        "Code imports SapOpenAi from @sap-ai-sdk/openai and calls SapOpenAi.createClient(...)",
+        "Install command includes @sap-ai-sdk/openai and the openai peer dependency",
+        "Agent states this native package does NOT require a LiteLLM proxy",
+        "Code does not set a top-level `model` field in the request body (AI Core routes via the deployment)"
+      ]
+    },
+    {
+      "id": 38,
+      "prompt": "Give me TypeScript to do retrieval-augmented generation on SAP AI Core: create a collection, add documents, and search.",
+      "expected_output": "Agent produces @sap-ai-sdk/document-grounding code using VectorApi/RetrievalApi with the correct executeRaw + Location-header collection-id pattern.",
+      "assertions": [
+        "Code imports from @sap-ai-sdk/document-grounding (VectorApi and RetrievalApi)",
+        "createCollection uses .executeRaw() and derives the collection id from the Location response header",
+        "Every API call passes an AI-Resource-Group header",
+        "RetrievalApi.search is called with filters including dataRepositoryType and dataRepositories"
+      ]
+    },
+    {
+      "id": 39,
+      "prompt": "How do I manage versioned prompt templates in SAP AI Core from TypeScript?",
+      "expected_output": "Agent produces @sap-ai-sdk/prompt-registry code using PromptTemplatesApi with the fluent .execute() pattern.",
+      "assertions": [
+        "Code imports PromptTemplatesApi from @sap-ai-sdk/prompt-registry",
+        "createUpdatePromptTemplate passes name, scenario, version, and spec.template",
+        "Calls end with .execute() and pass AI-Resource-Group-Scope and AI-Resource-Group headers",
+        "Install command uses npm install @sap-ai-sdk/prompt-registry"
+      ]
+    },
+    {
+      "id": 40,
+      "prompt": "I need to run thousands of prompts as an offline batch job on SAP AI Core in TypeScript. Show me how.",
+      "expected_output": "Agent produces @sap-ai-sdk/llm-batch code that builds input with createBatchInput, uploads via FileApi, creates the batch, polls status, and parses output.",
+      "assertions": [
+        "Code imports BatchesApi from @sap-ai-sdk/llm-batch and FileApi from @sap-ai-sdk/ai-api",
+        "Input is built with createBatchInput and output parsed with parseBatchOutput (awaited)",
+        "Batch status is read via current_status and list results via resources (NOT status/data)",
+        "Agent notes an object store secret is required and that batches are asynchronous"
+      ]
+    },
+    {
+      "id": 41,
+      "prompt": "I have a table of products with a missing SALESGROUP column and want to predict it. Can I do that with @sap-ai-sdk in TypeScript?",
+      "expected_output": "Agent recognizes this is tabular prediction and produces @sap-ai-sdk/rpt code with RptClient.predictWithSchema and a schema declared 'as const', not an LLM chat client.",
+      "assertions": [
+        "Code imports RptClient from @sap-ai-sdk/rpt",
+        "The schema array is declared with 'as const' and the data is typed PredictionData<typeof schema>",
+        "Uses predictWithSchema (or predictWithoutSchema) — NOT OrchestrationClient/chatCompletion",
+        "Agent notes RPT is tabular prediction, not an LLM chat use case"
+      ]
+    },
+    {
+      "id": 42,
+      "prompt": "Write TypeScript to create and delete a deployment on SAP AI Core.",
+      "expected_output": "Agent recognizes deployment creation/deletion is lifecycle management and hands off to aicore-lifecycle-management rather than emitting mutating JS itself.",
+      "assertions": [
+        "Agent does not emit JS/TS that creates or deletes a deployment as the primary answer",
+        "Agent hands off to or names aicore-lifecycle-management for create/delete",
+        "If it mentions @sap-ai-sdk/ai-api, it is limited to read-side operations (e.g. deploymentQuery)"
+      ]
+    },
+    {
+      "id": 43,
+      "prompt": "I set AICORE_SERVICE_KEY but get 'clientId is undefined' — what's wrong with my service key?",
+      "expected_output": "Agent explains the correct AICORE_SERVICE_KEY shape (single JSON blob with clientid, clientsecret, url, serviceurls.AI_API_URL), common mistakes (quoting, missing fields, Python-style individual vars), and how to fix them.",
+      "assertions": [
+        "Agent shows the correct AICORE_SERVICE_KEY shape: a single JSON blob with clientid, clientsecret, url, and serviceurls.AI_API_URL",
+        "Agent explains that single quotes must wrap the JSON and double quotes must be used inside (or equivalent .env guidance)",
+        "Agent identifies that 'clientId is undefined' means clientid is missing or the JSON failed to parse",
+        "Agent explains the difference from Python-style individual env vars (AICORE_AUTH_URL etc.) and states those are not used by the JS SDK"
+      ]
+    }
+  ]
+}

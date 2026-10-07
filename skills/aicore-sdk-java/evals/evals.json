@@ -1,0 +1,241 @@
+{
+  "skill_name": "aicore-sdk-java",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Give me Java code to do a simple chat with gpt-4o-mini using the SAP AI SDK",
+      "expected_output": "Agent produces working Java code using OrchestrationClient with OrchestrationAiModel.GPT_4O_MINI, the correct Maven dependency, and a credential setup comment.",
+      "assertions": [
+        "Code uses OrchestrationClient from com.sap.ai.sdk.orchestration",
+        "Config uses OrchestrationAiModel.GPT_4O_MINI (not a raw string)",
+        "Maven dependency uses groupId com.sap.ai.sdk and artifactId orchestration",
+        "Code includes a comment about AICORE_SERVICE_KEY or credential setup",
+        "Code calls chatCompletion() and prints response.getContent()"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "How do I stream a response from gpt-4o-mini in Java using the SAP AI SDK?",
+      "expected_output": "Agent produces streaming code using streamChatCompletion() with try-with-resources on OrchestrationClient.",
+      "assertions": [
+        "Code uses OrchestrationClient.streamChatCompletion() or streamChatCompletionDeltas()",
+        "Stream is consumed with forEach or a for-each loop",
+        "Try-with-resources is used to close the stream"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "How do I do a multi-turn conversation with the SAP AI SDK for Java?",
+      "expected_output": "Agent shows messageHistory(firstResponse.getAllMessages()) to pass conversation history to the next OrchestrationPrompt.",
+      "assertions": [
+        "Code calls getAllMessages() on the first response",
+        "Code passes the history to the next prompt via messageHistory()",
+        "Both turns use the same OrchestrationClient and config"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "How do I use prompt templates with variable substitution in the SAP AI SDK for Java?",
+      "expected_output": "Agent shows TemplateConfig.create().withMessages() with {{?placeholder}} syntax and OrchestrationPrompt(Map.of()) for input params.",
+      "assertions": [
+        "Code uses TemplateConfig.create().withMessages()",
+        "Template message contains {{?placeholder}} syntax",
+        "Prompt is created with Map.of() as input parameters",
+        "config.withTemplateConfig() is called"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "How do I apply the LlamaGuard content filter in Java?",
+      "expected_output": "Agent produces code using LlamaGuard38b.create() with category flags, LlamaGuardFilter, and exception handling.",
+      "assertions": [
+        "Code uses LlamaGuard38b.create() with at least one category method (e.g. violentCrimes, hate)",
+        "Code wraps it in new LlamaGuardFilter().config(...)",
+        "Code calls config.withInputFiltering(filterConfig)",
+        "Code catches OrchestrationFilterException.Input and/or .Output"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "How do I create text embeddings with the SAP AI SDK for Java?",
+      "expected_output": "Agent produces code using OrchestrationEmbeddingRequest.forModel(TEXT_EMBEDDING_3_SMALL).forInputs(texts) and client.embed().",
+      "assertions": [
+        "Code uses OrchestrationEmbeddingRequest.forModel() as the primary approach",
+        "Code calls .forInputs() with the list of texts",
+        "Code calls client.embed(request)"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Show me how to get structured JSON output (JSON schema) from an LLM using the SAP AI SDK for Java",
+      "expected_output": "Agent produces code using ResponseJsonSchema.fromType(), withJsonSchemaResponse(), and response.asEntity().",
+      "assertions": [
+        "Code uses ResponseJsonSchema.fromType()",
+        "Code calls .withJsonSchemaResponse(schema) inside TemplateConfig",
+        "Code calls config.withTemplateConfig()",
+        "Code calls response.asEntity(YourClass.class) to deserialize"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "How do I use Spring Boot with streaming using the SAP AI SDK for Java?",
+      "expected_output": "Agent produces a ResponseBodyEmitter-based Spring Boot controller using ThreadContextExecutors.getExecutor().execute(), not SseEmitter or Flux.",
+      "assertions": [
+        "Code uses ResponseBodyEmitter, not SseEmitter",
+        "Code uses ThreadContextExecutors.getExecutor().execute()",
+        "Stream is consumed inside a Runnable passed to the executor",
+        "emitter.complete() is called in a finally block",
+        "Return type is ResponseEntity<ResponseBodyEmitter> with MediaType.TEXT_EVENT_STREAM"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Write Java to chat with an orchestration model using the SAP AI SDK.",
+      "expected_output": "Agent serves the ChatOrchestration.java asset directly, uses OrchestrationAiModel constants, and includes credential guidance.",
+      "assertions": [
+        "Config uses .withLlmConfig(OrchestrationAiModel.GPT_4O_MINI) or another constant",
+        "Config does NOT pass a raw model name string directly",
+        "Response content is read via response.getContent()",
+        "A credential setup comment (AICORE_SERVICE_KEY) is present"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "I want to use an Anthropic Claude model through SAP orchestration in Java. Give me a starter.",
+      "expected_output": "Agent produces OrchestrationClient code using a CLAUDE OrchestrationAiModel constant.",
+      "assertions": [
+        "Config uses an OrchestrationAiModel constant for Claude (e.g. OrchestrationAiModel.CLAUDE_4_5_SONNET)",
+        "Code uses OrchestrationClient, not a direct Anthropic SDK client",
+        "Code prints the response via getContent()",
+        "A credential setup comment is present"
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "How do I mask personal data (PII) before it reaches the model, using the SAP AI SDK for Java?",
+      "expected_output": "Agent explains DpiMasking.anonymization().withEntities() and config.withMaskingConfig().",
+      "assertions": [
+        "Code uses DpiMasking.anonymization().withEntities(DPIEntities.PERSON) or similar",
+        "Code calls config.withMaskingConfig(maskingConfig)",
+        "Agent does not fabricate class names — uses asset or SDK_JAVA.md reference"
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "How do I use extended thinking / reasoning with Claude via the SAP AI SDK for Java?",
+      "expected_output": "Agent produces code using .withReasoningEffort(ReasoningEffort.HIGH) on a Claude model constant and accesses response.getReasoningText().",
+      "assertions": [
+        "Config calls .withReasoningEffort(ReasoningEffort.X) on a Claude model constant",
+        "Code reads reasoning via response.getReasoningText()",
+        "Code reads the final answer via response.getContent()",
+        "Agent names a supported Claude model (e.g. CLAUDE_4_5_SONNET)"
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "How do I do RAG with a vector store in Java using the SAP AI SDK?",
+      "expected_output": "Agent serves the GroundingOrchestration.java asset or produces grounding code using Grounding.create() and config.withGrounding().",
+      "assertions": [
+        "Code uses Grounding.create() and DocumentGroundingFilter",
+        "Code calls config.withGrounding(groundingConfig)",
+        "Code calls groundingConfig.createGroundingPrompt(userMessage)",
+        "Code uses OrchestrationClient"
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "How do I load a versioned prompt template from the SAP Prompt Registry in Java?",
+      "expected_output": "Agent serves the PromptRegistryOrchestration.java asset or produces code using TemplateConfig.reference().byId() or .byScenario().",
+      "assertions": [
+        "Code uses TemplateConfig.reference().byId(...) or .byScenario(...).name(...).version(...)",
+        "Prompt is created with Map.of() for input parameters",
+        "config.withTemplateConfig() is called with the registry reference"
+      ]
+    },
+    {
+      "id": 15,
+      "prompt": "How do I apply the Azure Content Filter in Java with the SAP AI SDK?",
+      "expected_output": "Agent produces code using AzureContentFilter with AzureFilterThreshold constants and config.withInputFiltering().",
+      "assertions": [
+        "Code uses new AzureContentFilter() with at least one category",
+        "Threshold uses AzureFilterThreshold constants (e.g. ALLOW_SAFE)",
+        "Code calls config.withInputFiltering(filterConfig) or withOutputFiltering(filterConfig)"
+      ]
+    },
+    {
+      "id": 16,
+      "prompt": "Write the SAP orchestration chat code in Python for me.",
+      "expected_output": "Agent recognizes this is a Python request and hands off to aicore-sdk-python rather than generating Java.",
+      "assertions": [
+        "Agent does not generate Java code",
+        "Agent explicitly hands off to or names the aicore-sdk-python skill"
+      ]
+    },
+    {
+      "id": 17,
+      "prompt": "Give me TypeScript code to chat with a GenAI Hub model.",
+      "expected_output": "Agent recognizes this is a TypeScript request and hands off to aicore-sdk-js.",
+      "assertions": [
+        "Agent does not generate Java code",
+        "Agent explicitly hands off to or names the aicore-sdk-js skill"
+      ]
+    },
+    {
+      "id": 18,
+      "prompt": "Generate a Java chat example with the SAP AI SDK but I don't have a deployment yet.",
+      "expected_output": "Agent notes a deployment is needed and offers to invoke aicore-lifecycle-management before generating code.",
+      "assertions": [
+        "Agent recognizes no deployment is available",
+        "Agent offers to invoke or names aicore-lifecycle-management",
+        "Agent still explains the correct OrchestrationClient code shape to use once a deployment exists"
+      ]
+    },
+    {
+      "id": 19,
+      "prompt": "Give me Java code to do a simple chat with gpt-4o-mini using the SAP AI SDK",
+      "expected_output": "Agent must use OrchestrationClient, not OpenAiClient. OpenAiClient is the direct Azure OpenAI proxy — not the recommended entry point for general chat.",
+      "negative": true,
+      "assertions": [
+        "Code does NOT use OpenAiClient.forModel() as the primary client for basic chat",
+        "Code does NOT import com.sap.ai.sdk.foundationmodels.openai.OpenAiClient as the main answer",
+        "Code does NOT use OpenAiMessage or OpenAiChatCompletionRequest"
+      ]
+    },
+    {
+      "id": 20,
+      "prompt": "How do I use Spring Boot with streaming using the SAP AI SDK for Java?",
+      "expected_output": "Agent must not suggest Flux, SseEmitter, or Thread.ofVirtual() — the correct pattern is ResponseBodyEmitter + ThreadContextExecutors.",
+      "negative": true,
+      "assertions": [
+        "Code does NOT use SseEmitter",
+        "Code does NOT use Flux.create() or Flux.fromStream() as the primary approach",
+        "Code does NOT use Thread.ofVirtual()",
+        "Code does NOT use Schedulers.boundedElastic()"
+      ]
+    },
+    {
+      "id": 21,
+      "prompt": "What's the correct way to set the model in the SAP AI SDK for Java? I saw an old example using a raw string.",
+      "expected_output": "Agent states the correct shape uses OrchestrationAiModel constants passed to withLlmConfig(), and that raw model name strings should not be used.",
+      "negative": true,
+      "assertions": [
+        "Agent says the correct shape is .withLlmConfig(OrchestrationAiModel.GPT_4O_MINI)",
+        "Agent identifies passing a raw string model name as incorrect",
+        "Agent does not present the raw string approach as current"
+      ]
+    },
+    {
+      "id": 22,
+      "prompt": "How do I use RPT with the SAP AI SDK for Java?",
+      "expected_output": "Agent produces code using RptClient.forModel(RptModel.SAP_RPT_1_SMALL) and rptClient.tableCompletion(request) — NOT DpiMasking or any data masking API. RPT is SAP Relational Prompt Tables, a table completion model, not a privacy/masking feature.",
+      "negative": true,
+      "assertions": [
+        "Agent does NOT describe RPT as a data masking or DPI feature",
+        "Agent does NOT use DpiMasking, DPIEntities, or withMaskingConfig() in its answer",
+        "Code uses RptClient.forModel(RptModel.SAP_RPT_1_SMALL)",
+        "Code calls rptClient.tableCompletion(request)",
+        "Code uses PredictRequestPayload with targetColumns and rows"
+      ]
+    }
+  ]
+}
