@@ -8,7 +8,6 @@ description: >
   DO NOT USE FOR: listing foundation models or getting inference examples — use
   `genai-hub-foundation-models`; managing resource groups, secrets, or GitOps resources — use
   `aicore-admin-resources`.
-allowed-tools: Bash, Read
 compatibility: Requires Python 3.11+, uv, and sap-ai-sdk-core.
 allowed-tools: Bash, Read
 ---
