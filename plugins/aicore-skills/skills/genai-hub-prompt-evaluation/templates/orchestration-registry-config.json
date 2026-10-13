@@ -1,0 +1,31 @@
+{
+  "name": "genai-eval-prompt-config",
+  "version": "0.0.1",
+  "scenario": "genai-evaluations",
+  "spec": {
+    "modules": {
+      "prompt_templating": {
+        "prompt": {
+          "template": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "List the benefits and side effects of the drug in the following consumer health question: {{?question}}."
+                }
+              ]
+            }
+          ],
+          "defaults": {
+            "question": ""
+          }
+        },
+        "model": {
+          "name": "gpt-5",
+          "version": "2025-08-07"
+        }
+      }
+    }
+  }
+}
