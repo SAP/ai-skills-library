@@ -7,6 +7,8 @@ A growing library of agent skills for the SAP AI Core.
 - **aicore-admin-resources** — manage AI Core admin resources
 - **aicore-lifecycle-management** — manage the full AI Core deployment lifecycle
 - **genai-hub-foundation-models** — discover, deploy, and call foundation models
+- **genai-hub-orchestration** — build orchestration pipelines: prompt templating, content filtering, data masking, and document grounding (RAG)
+- **genai-hub-tabular-orchestration** — manage the Context Registry and run tabular predictions
 
 ## Requirements
 
@@ -30,6 +32,9 @@ Once installed, just describe what you need:
 - `genai-hub-foundation-models`: "What models are available from Anthropic?"
 - `genai-hub-foundation-models`: "Create a gpt-4o-mini deployment and wait for it to be running"
 - `genai-hub-foundation-models`: "Generate a curl example using the OpenAI Responses API via GenAI Hub"
+- `genai-hub-orchestration`: "Call the orchestration service with a prompt template in Python"
+- `genai-hub-orchestration`: "Add Azure content filtering to my orchestration pipeline"
+- `genai-hub-orchestration`: "Build a RAG pipeline with document grounding over my data repository"
 - `genai-hub-tabular-orchestration`: "List all my data destinations and tabular artifacts"
 - `genai-hub-tabular-orchestration`: "Register my CSV file on HDL as a tabular artifact called customer-data"
 - `genai-hub-tabular-orchestration`: "Create a scenario configuration bundling customer-ta and orders-ta"
