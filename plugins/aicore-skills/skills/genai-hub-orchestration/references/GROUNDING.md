@@ -51,7 +51,7 @@ config = OrchestrationConfig(
 )
 ```
 
-The template variable referenced in `input_params` (e.g. `groundingInput`) must appear in the template as `{{?groundingInput}}`. The orchestration service replaces it with the retrieved context before passing to the LLM.
+The template variable referenced in `input_params` (e.g. `groundingInput`) must appear in the template as `{{?groundingInput}}`. The retrieved context is injected into `output_param` (e.g. `{{?groundingOutput}}`), which must also appear in the template.
 
 ## Full Working Example
 

@@ -210,4 +210,4 @@ Reasoning models consume tokens on internal thinking before the visible response
 | Content filtering | No                                  | Yes (Azure Content Safety)     |
 | Data masking      | No                                  | Yes (SAP DPI)                  |
 | Grounding / RAG   | No                                  | Yes                            |
-| Model switching   | Change deployment                   | Change `model_name` in request |
+| Model switching   | Change deployment                   | Change `config.modules.prompt_templating.model.name` in request |

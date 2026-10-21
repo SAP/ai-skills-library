@@ -2,10 +2,10 @@
 name: genai-hub-orchestration
 description: >
   Configure and use the SAP AI Core Orchestration service: build prompt templates, add content
-  filtering and data masking, set up document grounding (RAG) pipelines, and call models via
+  filtering, set up document grounding (RAG) pipelines, and call models via
   the Harmonized API.
   WHEN: user asks about the orchestration service, Harmonized API, prompt
-  templating with variables, content filtering, data masking, grounding, RAG pipeline, document
+  templating with variables, content filtering, grounding, RAG pipeline, document
   grounding, or building a pipeline that wraps an LLM.
   DO NOT USE FOR: creating an orchestration deployment — use `aicore-lifecycle-management` for that;
   credential setup — use `aicore-admin-resources`; browsing or deploying foundation models
@@ -107,12 +107,6 @@ filtering = ContentFiltering(
     output_filtering=OutputFiltering(filters=[AzureContentFilter(hate=2, violence=2, sexual=2, self_harm=2)]),
 )
 config = OrchestrationConfig(template=..., llm=..., filtering=filtering)
-```
-
-### Add data masking
-
-```python
-from gen_ai_hub.orchestration.models.data_masking import DataMasking
 ```
 
 ---

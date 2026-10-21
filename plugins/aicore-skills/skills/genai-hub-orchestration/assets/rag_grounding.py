@@ -32,7 +32,7 @@ config = OrchestrationConfig(
                 "You are a helpful assistant. Answer questions using only the provided context. "
                 "If the answer is not in the context, say so."
             ),
-            UserMessage("{{?groundingInput}}"),
+            UserMessage("Context:\n{{?groundingOutput}}\n\nQuestion: {{?groundingInput}}"),
         ]
     ),
     llm=LLM(
