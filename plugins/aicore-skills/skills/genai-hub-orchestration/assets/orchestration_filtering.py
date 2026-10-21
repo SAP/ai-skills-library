@@ -3,8 +3,7 @@
 #
 # Orchestration with Azure content safety filtering (input + output).
 # Requires a running orchestration deployment.
-# Create one first with the aicore-lifecycle-management skill:
-#   uv run skills/aicore-lifecycle-management/scripts/create_deployment.py --configuration-id <config-id> --wait
+# Create one first with the aicore-lifecycle-management skill (see its "Orchestration deployment" section).
 #
 # Credentials: configure with the aicore-admin-resources skill (aicore configure or AICORE_* env vars).
 
@@ -13,13 +12,17 @@ from gen_ai_hub.orchestration.models.config import OrchestrationConfig
 from gen_ai_hub.orchestration.models.llm import LLM
 from gen_ai_hub.orchestration.models.template import Template, TemplateValue
 from gen_ai_hub.orchestration.models.message import SystemMessage, UserMessage
-from gen_ai_hub.orchestration.models.content_filtering import ContentFiltering
+from gen_ai_hub.orchestration.models.content_filtering import (
+    ContentFiltering,
+    InputFiltering,
+    OutputFiltering,
+)
 from gen_ai_hub.orchestration.models.azure_content_filter import AzureContentFilter
 
-# Azure content safety filter — thresholds: 0 (allow all) to 6 (block most)
-# Categories: Hate, Violence, Sexual, SelfHarm
-input_filter = AzureContentFilter(Hate=2, Violence=2, Sexual=2, SelfHarm=2)
-output_filter = AzureContentFilter(Hate=2, Violence=2, Sexual=2, SelfHarm=2)
+# Azure content safety filter — thresholds: 0 (allow all), 2, 4, 6 (block most)
+# Categories: hate, violence, sexual, self_harm
+input_filter = AzureContentFilter(hate=2, violence=2, sexual=2, self_harm=2)
+output_filter = AzureContentFilter(hate=2, violence=2, sexual=2, self_harm=2)
 
 config = OrchestrationConfig(
     template=Template(
@@ -34,8 +37,8 @@ config = OrchestrationConfig(
         parameters={"temperature": 0.3, "max_completion_tokens": 512},
     ),
     filtering=ContentFiltering(
-        input_filter=input_filter,
-        output_filter=output_filter,
+        input_filtering=InputFiltering(filters=[input_filter]),
+        output_filtering=OutputFiltering(filters=[output_filter]),
     ),
 )
 

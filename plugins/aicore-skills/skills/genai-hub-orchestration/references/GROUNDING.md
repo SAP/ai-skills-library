@@ -10,7 +10,13 @@ The SAP AI Core Orchestration service supports retrieval-augmented generation (R
 ## Python Imports
 
 ```python
-from gen_ai_hub.orchestration.models.document_grounding import GroundingModule
+from gen_ai_hub.orchestration.models.document_grounding import (
+    GroundingModule,
+    DocumentGrounding,
+    DocumentGroundingFilter,
+    GroundingType,
+    DataRepositoryType,
+)
 from gen_ai_hub.document_grounding.clients.retrieval_api_client import RetrievalAPIClient
 from gen_ai_hub.document_grounding.clients.vector_api_client import VectorAPIClient
 ```
@@ -19,16 +25,17 @@ from gen_ai_hub.document_grounding.clients.vector_api_client import VectorAPICli
 
 ```python
 grounding = GroundingModule(
-    type="document_grounding_service",
-    config={
-        "input_params": ["groundingInput"],   # template variable to use as the query
-        "output_param": "groundingOutput",    # variable that receives retrieved context
-        "filters": [
-            {
-                "id": "<your-data-repository-id>",
-            }
+    type=GroundingType.DOCUMENT_GROUNDING_SERVICE.value,
+    config=DocumentGrounding(
+        input_params=["groundingInput"],   # template variable to use as the query
+        output_param="groundingOutput",    # variable that receives retrieved context
+        filters=[
+            DocumentGroundingFilter(
+                id="<your-data-repository-id>",
+                data_repository_type=DataRepositoryType.VECTOR.value,
+            )
         ],
-    },
+    ),
 )
 ```
 

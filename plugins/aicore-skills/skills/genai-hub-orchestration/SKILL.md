@@ -9,7 +9,7 @@ description: >
   grounding, or building a pipeline that wraps an LLM.
   DO NOT USE FOR: creating an orchestration deployment — use `aicore-lifecycle-management` for that;
   credential setup — use `aicore-admin-resources`; browsing or deploying foundation models
-  directly without a pipeline — use `genai-hub-foundation-models`.
+  directly without a pipeline — use `genai-hub-foundation-models`; direct LLM inference without a pipeline — use `aicore-sdk-java` or `aicore-sdk-js`
 compatibility: Requires Python 3.11+, uv, and sap-ai-sdk-gen.
 allowed-tools: Bash, Read
 ---
@@ -95,12 +95,16 @@ print(result.orchestration_result.choices[0].message.content)
 ### Add content filtering
 
 ```python
-from gen_ai_hub.orchestration.models.content_filtering import ContentFiltering
+from gen_ai_hub.orchestration.models.content_filtering import (
+    ContentFiltering,
+    InputFiltering,
+    OutputFiltering,
+)
 from gen_ai_hub.orchestration.models.azure_content_filter import AzureContentFilter
 
 filtering = ContentFiltering(
-    input_filter=AzureContentFilter(Hate=2, Violence=2, Sexual=2, SelfHarm=2),
-    output_filter=AzureContentFilter(Hate=2, Violence=2, Sexual=2, SelfHarm=2),
+    input_filtering=InputFiltering(filters=[AzureContentFilter(hate=2, violence=2, sexual=2, self_harm=2)]),
+    output_filtering=OutputFiltering(filters=[AzureContentFilter(hate=2, violence=2, sexual=2, self_harm=2)]),
 )
 config = OrchestrationConfig(template=..., llm=..., filtering=filtering)
 ```
@@ -158,6 +162,8 @@ Extract the answer with: `jq '.final_result.choices[0].message.content'`
 - **No orchestration deployment running?** → invoke `aicore-lifecycle-management`
 - **Credential/auth error?** → invoke `aicore-admin-resources`
 - **Need to find a model name?** → invoke `genai-hub-foundation-models`
+- **Want full Java SDK boilerplate (non-orchestration)?** → invoke `aicore-sdk-java`
+- **Want full JS SDK boilerplate (non-orchestration)?** → invoke `aicore-sdk-js`
 
 ---
 

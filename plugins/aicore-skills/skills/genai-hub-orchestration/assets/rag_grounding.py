@@ -3,8 +3,8 @@
 #
 # RAG via the orchestration document grounding module.
 # Requires:
-#   1. A running orchestration deployment — create one with the aicore-lifecycle-management skill:
-#      uv run skills/aicore-lifecycle-management/scripts/create_deployment.py --configuration-id <config-id> --wait
+#   1. A running orchestration deployment — create one with the aicore-lifecycle-management skill
+#      (see its "Orchestration deployment" section).
 #   2. A document grounding data repository configured in AI Core with indexed documents
 #
 # Credentials: configure with the aicore-admin-resources skill (aicore configure or AICORE_* env vars).
@@ -14,7 +14,13 @@ from gen_ai_hub.orchestration.models.config import OrchestrationConfig
 from gen_ai_hub.orchestration.models.llm import LLM
 from gen_ai_hub.orchestration.models.template import Template, TemplateValue
 from gen_ai_hub.orchestration.models.message import SystemMessage, UserMessage
-from gen_ai_hub.orchestration.models.document_grounding import GroundingModule
+from gen_ai_hub.orchestration.models.document_grounding import (
+    GroundingModule,
+    DocumentGrounding,
+    DocumentGroundingFilter,
+    GroundingType,
+    DataRepositoryType,
+)
 
 # Replace with your actual data repository ID from AI Core
 DATA_REPOSITORY_ID = "<your-data-repository-id>"
@@ -35,16 +41,17 @@ config = OrchestrationConfig(
         parameters={"temperature": 0.0, "max_completion_tokens": 1024},
     ),
     grounding=GroundingModule(
-        type="document_grounding_service",
-        config={
-            "input_params": ["groundingInput"],
-            "output_param": "groundingOutput",
-            "filters": [
-                {
-                    "id": DATA_REPOSITORY_ID,
-                }
+        type=GroundingType.DOCUMENT_GROUNDING_SERVICE.value,
+        config=DocumentGrounding(
+            input_params=["groundingInput"],
+            output_param="groundingOutput",
+            filters=[
+                DocumentGroundingFilter(
+                    id=DATA_REPOSITORY_ID,
+                    data_repository_type=DataRepositoryType.VECTOR.value,
+                )
             ],
-        },
+        ),
     ),
 )
 

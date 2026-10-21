@@ -2,8 +2,7 @@
 # Run:     uv run assets/orchestration_basic.py
 #
 # Orchestration service with a prompt template — requires a running orchestration deployment.
-# Create one first with the aicore-lifecycle-management skill:
-#   uv run skills/aicore-lifecycle-management/scripts/create_deployment.py --configuration-id <config-id> --wait
+# Create one first with the aicore-lifecycle-management skill (see its "Orchestration deployment" section).
 #
 # Credentials: configure with the aicore-admin-resources skill (aicore configure or AICORE_* env vars).
 
