@@ -1,0 +1,39 @@
+{
+  "skill_name": "genai-hub-orchestration",
+  "evals": [
+    {
+      "id": 12,
+      "prompt": "Show me how to call the orchestration service with a prompt template in Python",
+      "expected_output": "Agent generates a working Python example using sap-ai-sdk-gen that calls the orchestration service with a prompt template containing input variables.",
+      "assertions": [
+        "Generated code imports from sap-ai-sdk-gen (not generative-ai-hub-sdk)",
+        "Generated code uses OrchestrationService and OrchestrationConfig",
+        "Prompt template includes at least one {{?variable}} placeholder",
+        "Agent includes the uv add sap-ai-sdk-gen install command or equivalent setup step"
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "Add Azure content filtering to my orchestration pipeline",
+      "expected_output": "Agent generates a Python example that extends an orchestration pipeline with Azure content filtering applied to both input and output.",
+      "assertions": [
+        "Generated code imports AzureContentFilter from sap-ai-sdk-gen",
+        "Content filtering is applied to both input and output of the pipeline",
+        "At least one content category (Hate, Violence, Sexual, or SelfHarm) is configured with a threshold",
+        "Generated code is runnable with uv run"
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "Show me how to call the orchestration service with a prompt template using curl",
+      "expected_output": "Agent provides a working curl command that calls the orchestration /v2/completion endpoint with a prompt template, including how to get the Bearer token and resource group.",
+      "assertions": [
+        "curl command targets the /v2/completion endpoint (not /v1/chat/completions)",
+        "curl command includes Authorization: Bearer header with a token",
+        "curl command includes AI-Resource-Group header",
+        "Request body includes a {{?variable}} placeholder in the prompt template",
+        "Agent shows how to obtain the Bearer token (e.g. get_token.py script or TOKEN env var)"
+      ]
+    }
+  ]
+}
