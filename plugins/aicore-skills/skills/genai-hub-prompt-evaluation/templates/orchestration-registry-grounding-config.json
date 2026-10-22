@@ -1,0 +1,49 @@
+{
+  "name": "genai-eval-grounding-config",
+  "version": "0.0.1",
+  "scenario": "genai-evaluations",
+  "spec": {
+    "modules": {
+      "prompt_templating": {
+        "prompt": {
+          "template": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "You are a helpful assistant specialized in SAP-related topics. Answer the following SAP question using the provided context. If the answer is not explicitly available in the context, respond with: 'The answer is not available in the provided context.'\n\nRequest: {{?question}}\n\nContext: {{?groundingOutput}}"
+                }
+              ]
+            }
+          ],
+          "defaults": {
+            "groundingOutput": "",
+            "question": ""
+          }
+        },
+        "model": {
+          "name": "gpt-5",
+          "version": "2025-08-07"
+        }
+      },
+      "grounding": {
+        "type": "document_grounding_service",
+        "config": {
+          "filters": [
+            {
+              "id": "helpRepo",
+              "data_repositories": ["*"],
+              "search_config": { "max_chunk_count": 1 },
+              "data_repository_type": "help.sap.com"
+            }
+          ],
+          "placeholders": {
+            "input": ["question"],
+            "output": "groundingOutput"
+          }
+        }
+      }
+    }
+  }
+}

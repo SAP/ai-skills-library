@@ -1,0 +1,13 @@
+{
+  "name": "prompt-registry-eval-demo",
+  "version": "1.0.0",
+  "scenario": "genai-evaluations",
+  "spec": {
+    "template": [
+      {
+        "role": "user",
+        "content": "Write a short Instagram caption about {{?topic}} in a {{?sentiment}} tone. The caption must be written in the language code: {{?language}}.\n\nRespond with ONLY a valid JSON object and nothing else (no markdown, no code fences), in exactly this structure:\n{\n  \"explanation\": \"<the Instagram caption text>\",\n  \"rating\": <integer 1-5 indicating how well the caption matches the requested tone>\n}"
+      }
+    ]
+  }
+}
