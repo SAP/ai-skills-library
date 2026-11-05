@@ -1,0 +1,18 @@
+{
+  "bundled_on": "2026-09-08",
+  "source_repo": "https://github.com/SAP/abap-atc-cr-cv-s4hc",
+  "files": {
+    "objectReleaseInfo_PCELatest.json": {
+      "commit_sha": "04861814ff8a",
+      "commit_date": "2026-02-25",
+      "commit_message": "Add files via upload - 2025 FPS1 file updates",
+      "object_count": 44541
+    },
+    "objectClassifications_SAP.json": {
+      "commit_sha": "fb377c7379e0",
+      "commit_date": "2026-07-06",
+      "commit_message": "6Jul update of classic API (#165)",
+      "object_count": 8588
+    }
+  }
+}
