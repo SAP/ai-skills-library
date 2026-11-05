@@ -12,7 +12,6 @@ Usage:
 import json
 import urllib.request
 import urllib.error
-import os
 import argparse
 from pathlib import Path
 
