@@ -5,7 +5,7 @@
  *          bun run assets/langchain_openai.ts
  *
  * LangChain chat and streaming via AzureOpenAiChatClient from @sap-ai-sdk/langchain.
- * No LiteLLM proxy needed — the SDK handles AI Core auth natively.
+ * The SDK handles AI Core auth natively.
  * Credentials: run 'aicore configure' or see references/SETUP.md
  */
 

@@ -1,7 +1,7 @@
 {
   "name": "aicore-skills",
   "description": "Skills for SAP AI Core.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": {
     "name": "SAP"
   },
@@ -16,6 +16,8 @@
   "skills": [
     "./skills/aicore-admin-resources",
     "./skills/aicore-lifecycle-management",
+    "./skills/aicore-sdk-java",
+    "./skills/aicore-sdk-js",
     "./skills/genai-hub-foundation-models",
     "./skills/genai-hub-orchestration",
     "./skills/genai-hub-prompt-evaluation",
