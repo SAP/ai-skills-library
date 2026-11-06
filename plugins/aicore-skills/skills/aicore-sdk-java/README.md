@@ -16,12 +16,6 @@ Generate working Java boilerplate for SAP GenAI Hub using the `com.sap.ai.sdk` f
 - **Native OpenAI Responses API** via `com.sap.ai.sdk:openai`
 - **Tabular prediction** via `com.sap.ai.sdk:sap-rpt` (SAP-RPT-1 model)
 
-## Installation
-
-```bash
-npx skills add SAP/ai-skills-library --skill aicore-sdk-java
-```
-
 ## Requirements
 
 - Java 17+
