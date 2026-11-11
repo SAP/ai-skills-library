@@ -1,6 +1,6 @@
 ---
 name: sap-fiori-ios
-description: SAP Fiori for iOS Design Skill — Converts Figma designs from the Fiori iOS UI Kit into SwiftUI prototypes with animations and interactions. Use this skill when a designer provides a Figma node ID or component name and wants working SwiftUI code, when asking which Fiori iOS component to use, when mapping Figma variants to SwiftUI, or when adding animations and state transitions to iOS prototypes. Triggers on: Fiori iOS, SwiftUI, iOS prototype, Figma to iOS, FioriButton, FioriTheme, animation, interaction, SAP 72, preferredFioriColor, ObjectItem, FioriSwiftUI.
+description: "SAP Fiori for iOS Design Skill — Converts Figma designs from the Fiori iOS UI Kit into SwiftUI prototypes with animations and interactions. Use this skill when a designer provides a Figma node ID or component name and wants working SwiftUI code, when asking which Fiori iOS component to use, when mapping Figma variants to SwiftUI, or when adding animations and state transitions to iOS prototypes. Triggers on: Fiori iOS, SwiftUI, iOS prototype, Figma to iOS, FioriButton, FioriTheme, animation, interaction, SAP 72, preferredFioriColor, ObjectItem, FioriSwiftUI."
 ---
 
 # SAP Fiori for iOS — Design Skill
