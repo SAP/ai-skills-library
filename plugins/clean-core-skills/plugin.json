@@ -1,0 +1,20 @@
+{
+  "name": "clean-core-skills",
+  "description": "A knowledge-base assistant for Enterprise Architects and Architecture Advisors at SAP. Covers all five SAP Clean Core principles — Extensibility, Integration, Data, Business Processes, and Operations. Start with clean-core-general for overview and cross-cutting questions; use the principle-specific skills for deep guidance. Also generates ATC assessment dashboards from SAP ATC findings exports.",
+  "version": "2.1.0",
+  "author": {
+    "name": "Lukas Bretschneider",
+    "email": "lukas.bretschneider@sap.com"
+  },
+  "homepage": "https://skills.cloud.sap",
+  "repository": "https://github.com/SAP/ai-skills-library",
+  "skills": [
+    "./skills/clean-core-data",
+    "./skills/clean-core-extensibility",
+    "./skills/clean-core-extensibility-atc-assessment",
+    "./skills/clean-core-general",
+    "./skills/clean-core-integration",
+    "./skills/clean-core-operations",
+    "./skills/clean-core-processes"
+  ]
+}
