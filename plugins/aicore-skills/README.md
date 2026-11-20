@@ -6,6 +6,8 @@ A growing library of agent skills for the SAP AI Core.
 
 - **aicore-admin-resources** — manage AI Core admin resources
 - **aicore-lifecycle-management** — manage the full AI Core deployment lifecycle
+- **aicore-sdk-java** — generate SAP AI SDK for Java (`com.sap.ai.sdk`) boilerplate for GenAI Hub
+- **aicore-sdk-js** — generate SAP AI SDK for JavaScript/TypeScript (`@sap-ai-sdk`) boilerplate for GenAI Hub
 - **genai-hub-foundation-models** — discover, deploy, and call foundation models
 - **genai-hub-orchestration** — build orchestration pipelines: prompt templating, content filtering, data masking, and document grounding (RAG)
 - **genai-hub-tabular-orchestration** — manage the Context Registry and run tabular predictions
@@ -29,6 +31,8 @@ Once installed, just describe what you need:
 
 - `aicore-admin-resources`: "Check if my AI Core setup is working"
 - `aicore-lifecycle-management`: "List all running deployments"
+- `aicore-sdk-java`: "Give me Java code to chat with a GenAI Hub model"
+- `aicore-sdk-js`: "Give me TypeScript code to chat with a GenAI Hub model using @sap-ai-sdk"
 - `genai-hub-foundation-models`: "What models are available from Anthropic?"
 - `genai-hub-foundation-models`: "Create a gpt-4o-mini deployment and wait for it to be running"
 - `genai-hub-foundation-models`: "Generate a curl example using the OpenAI Responses API via GenAI Hub"

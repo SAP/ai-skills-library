@@ -16,7 +16,7 @@ llms.txt (for fetching): https://sap.github.io/ai-sdk/llms.txt
 | ------------------------------- | ------------------------------------------------------------- |
 | `@sap-ai-sdk/orchestration`     | Orchestration service client (recommended entry point)        |
 | `@sap-ai-sdk/foundation-models` | Direct Azure OpenAI proxy client                              |
-| `@sap-ai-sdk/openai`            | Native OpenAI SDK surface on AI Core (no LiteLLM proxy needed) |
+| `@sap-ai-sdk/openai`            | Native OpenAI SDK surface on AI Core                          |
 | `@sap-ai-sdk/langchain`         | LangChain-compatible clients (chat, embedding, orchestration) |
 | `@sap-ai-sdk/document-grounding`| Document grounding / RAG pipelines                            |
 | `@sap-ai-sdk/prompt-registry`   | Managed, versioned prompt templates                           |
@@ -31,7 +31,7 @@ llms.txt (for fetching): https://sap.github.io/ai-sdk/llms.txt
 # Orchestration + foundation models
 npm install @sap-ai-sdk/orchestration @sap-ai-sdk/foundation-models
 
-# LangChain integration (no LiteLLM proxy needed)
+# LangChain integration
 npm install @sap-ai-sdk/langchain @langchain/core
 
 # Or with bun
@@ -199,7 +199,7 @@ bun run my-script.ts   # with bun
 
 ## LangChain (@sap-ai-sdk/langchain)
 
-Native LangChain integration — no LiteLLM proxy needed.
+Native LangChain integration.
 
 ### AzureOpenAiChatClient
 
@@ -282,38 +282,13 @@ their exact current shape:
 - Document grounding: `@sap-ai-sdk/document-grounding` + `grounding` module config
 - Prompt registry: `@sap-ai-sdk/prompt-registry` for managed, versioned templates
 
-## Alternative: OpenAI npm package via LiteLLM proxy
-
-> **Prefer `@sap-ai-sdk/openai` (below) for the standard OpenAI surface** — it needs no proxy.
-> Use this LiteLLM path only when you specifically require a running OpenAI-compatible proxy
-> (e.g. to serve non-JS clients through one endpoint).
-
-For frameworks that expect the standard OpenAI API, run LiteLLM as a local proxy
-pointed at AI Core, then use the standard `openai` package with `baseURL` overridden.
-See `references/FRAMEWORKS.md` for the LiteLLM proxy setup.
-
-```typescript
-import OpenAI from "openai";
-
-const client = new OpenAI({
-  baseURL: process.env.LITELLM_PROXY_URL ?? "http://localhost:4000",
-  apiKey: process.env.LITELLM_API_KEY ?? "any",
-});
-
-const response = await client.chat.completions.create({
-  model: "sap/gpt-4o",
-  messages: [{ role: "user", content: "Hello" }],
-});
-console.log(response.choices[0].message.content);
-```
-
-## Native OpenAI SDK (`@sap-ai-sdk/openai`) — preferred over the LiteLLM proxy
+## Native OpenAI SDK (`@sap-ai-sdk/openai`)
 
 If you want the **standard OpenAI SDK surface** (chat, streaming, embeddings, the
 Responses API, Zod structured parsing), use `@sap-ai-sdk/openai` — it wraps the official
-`openai` npm package and talks to Azure OpenAI on SAP AI Core directly. This **removes the
-need for a LiteLLM proxy** for OpenAI-API users: no separate proxy process, native `openai`
-types/endpoints, and SAP auth/headers/deployment routing handled for you. The `model` field
+`openai` npm package and talks to Azure OpenAI on SAP AI Core directly. It gives OpenAI-API
+users the standard surface with native `openai` types/endpoints, and SAP auth/headers/deployment
+routing handled for you. The `model` field
 is omitted from request bodies because AI Core routes via the deployment URL. Peer dependency:
 `openai` (`^6.49 || ^7`).
 

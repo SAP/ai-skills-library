@@ -25,11 +25,11 @@ compatibility: Requires Node.js 22+ with native ESM support, and npm or bun. Con
 4. Target `@sap-ai-sdk` **v2** (orchestration `2.14+`). The preferred invocation pattern is passing `messages` directly to `chatCompletion()` / `stream()`. Only use `promptTemplating.prompt.template` with `{{?placeholder}}` values when the user explicitly wants a server-side reusable template. Never emit the v1 shape `llm: { model_name }` / `templating: { template }` — it does not compile against v2.
 5. Never emit Python code snippets — this skill is JS/TS only. If the user asks for Python, inform them that no Python skill is available in this repo and point them to https://sap.github.io/ai-sdk/ for Python SDK guidance.
 6. Gather these details before generating code — ask only for what the user hasn't provided:
-   - **Framework**: `@sap-ai-sdk/*` (recommended) / `@sap-ai-sdk/langchain` (LangChain) / OpenAI npm package via LiteLLM proxy?
+   - **Framework**: `@sap-ai-sdk/*` (recommended) / `@sap-ai-sdk/langchain` (LangChain)?
    - **Use case**: chat / streaming / embeddings?
    - **Runtime**: Node.js / Bun / browser?
    - **Model + Deployment ID**: check the SAP AI Core console for existing deployments
-   - **Model-switching intent** (ask only when the user specifies an OpenAI model like gpt-4o, gpt-4.1, etc.): do they plan to switch models later (e.g. to Claude or Gemini)? If yes → recommend `@sap-ai-sdk/orchestration` for portability. If they want to stay on OpenAI → use `@sap-ai-sdk/openai` (`SapOpenAi.createClient`) as the simpler native OpenAI SDK alternative; no LiteLLM proxy needed.
+   - **Model-switching intent** (ask only when the user specifies an OpenAI model like gpt-4o, gpt-4.1, etc.): do they plan to switch models later (e.g. to Claude or Gemini)? If yes → recommend `@sap-ai-sdk/orchestration` for portability. If they want to stay on OpenAI → use `@sap-ai-sdk/openai` (`SapOpenAi.createClient`) as the simpler native OpenAI SDK alternative.
 
 ---
 
@@ -39,7 +39,7 @@ Use the best source available, in this order. Never block on a source that isn't
 
 1. **Baked-in reference (always available).** `references/SDK_JS.md` and `assets/*.ts` are the
    compile-checked v2 floor. They are correct for the common paths (chat, streaming, LangChain,
-   embeddings, proxy) and require no network or MCP. Use them by default.
+   embeddings) and require no network or MCP. Use them by default.
 2. **Context7 MCP (use if available).** _If_ the `context7` `query-docs` tool is registered in
    this session, prefer it for the freshest API, version-specific details, or any feature the
    baked-in reference marks as fast-moving (tool calling, data masking, document grounding,
@@ -69,7 +69,6 @@ reproduces stale v1 code. When unsure, use source 2 if present, else source 3.
 | Context Registry (data destinations, tabular artifacts, scenario configs) | `assets/context_registry.ts` | `npm install @sap-ai-sdk/context-registry` |
 | Tabular Orchestration (RPT predict via Scenario Config or inline context) | `assets/tabular_orchestration.ts` | `npm install @sap-ai-sdk/tabular-orchestration` |
 | Real-time speech/text via WebSocket (`gpt-realtime`)                      | `assets/realtime.ts`              | `npm install @sap-ai-sdk/openai openai ws`      |
-| Chat via OpenAI npm package (LiteLLM proxy)        | `assets/chat_openai_proxy.ts`       | `npm install openai`                                                                 |
 
 ---
 
@@ -79,10 +78,10 @@ reproduces stale v1 code. When unsure, use source 2 if present, else source 3.
 # @sap-ai-sdk (recommended — native SAP SDK)
 npm install @sap-ai-sdk/orchestration @sap-ai-sdk/foundation-models
 
-# Native OpenAI SDK surface on AI Core (no LiteLLM proxy needed)
+# Native OpenAI SDK surface on AI Core
 npm install @sap-ai-sdk/openai openai zod
 
-# LangChain integration (no LiteLLM proxy needed)
+# LangChain integration
 npm install @sap-ai-sdk/langchain @langchain/core
 
 # RAG, prompt templates, batch jobs, tabular prediction
@@ -93,9 +92,6 @@ npm install @sap-ai-sdk/rpt
 
 # With bun
 bun add @sap-ai-sdk/orchestration @sap-ai-sdk/foundation-models
-
-# OpenAI npm package via LiteLLM proxy (only if you need a running proxy; prefer @sap-ai-sdk/openai)
-npm install openai
 ```
 
 ---
