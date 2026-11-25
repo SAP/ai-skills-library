@@ -1,0 +1,15 @@
+{
+  "skill_name": "aicore-sdk-python",
+  "description": "Trigger evals for aicore-sdk-python. should_trigger=true means Claude should select this skill; false means a neighboring skill (named in `belongs_to`) should fire instead.",
+  "queries": [
+    {
+      "query": "Write the SAP orchestration chat code in Python",
+      "should_trigger": true
+    },
+    {
+      "query": "Give me TypeScript code to chat with a GenAI Hub model",
+      "should_trigger": false,
+      "belongs_to": "aicore-sdk-js"
+    }
+  ]
+}
