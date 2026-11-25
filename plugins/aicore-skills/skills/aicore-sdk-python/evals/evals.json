@@ -1,0 +1,17 @@
+{
+  "skill_name": "aicore-sdk-python",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Give me Python code to do a simple chat with gpt-4o-mini using SAP GenAI Hub",
+      "expected_output": "Agent asks at least one clarifying question (e.g. deployment ID or use case), then generates working Python code using sap-ai-sdk-gen with the native OpenAI proxy, imports from gen_ai_hub (not generative_ai_hub_sdk), and includes the correct install command.",
+      "assertions": [
+        "Agent asks at least one clarifying question before generating code",
+        "Generated code imports from gen_ai_hub, not generative_ai_hub or generative_ai_hub_sdk",
+        "Install command uses uv add sap-ai-sdk-gen",
+        "Generated code uses chat.completions.create() with model_name parameter",
+        "Generated code includes a credential setup comment (aicore configure or AICORE_* env vars)"
+      ]
+    }
+  ]
+}

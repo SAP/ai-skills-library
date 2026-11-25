@@ -18,6 +18,7 @@
     "./skills/aicore-lifecycle-management",
     "./skills/aicore-sdk-java",
     "./skills/aicore-sdk-js",
+    "./skills/aicore-sdk-python",
     "./skills/genai-hub-foundation-models",
     "./skills/genai-hub-orchestration",
     "./skills/genai-hub-prompt-evaluation",
